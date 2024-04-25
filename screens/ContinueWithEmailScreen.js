@@ -1,5 +1,8 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as BackendApi from '../apis/BackendApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import mergeState from '../global-functions/mergeState';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -8,6 +11,7 @@ import {
   IconButton,
   KeyboardAvoidingView,
   ScreenContainer,
+  SimpleStyleFlatList,
   TextInput,
   withTheme,
 } from '@draftbit/ui';
@@ -16,7 +20,27 @@ import { Text, View } from 'react-native';
 const ContinueWithEmailScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const [emailFieldValue, setEmailFieldValue] = React.useState('');
+  const [errors, setErrors] = React.useState({ email: [] });
   const [textInputValue, setTextInputValue] = React.useState('');
+  const validateEmail = email => {
+    const errors = [];
+    const emailRegex =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+    if (Boolean(email.trim())) {
+      if (!emailRegex.test(email)) {
+        errors.push('Invalid email');
+      }
+    } else {
+      errors.push('Email cannot be empty');
+    }
+
+    return errors;
+  };
+  const backend$v1$checkEmailPOST = BackendApi.use$v1$checkEmailPOST();
 
   return (
     <ScreenContainer
@@ -46,8 +70,9 @@ const ContinueWithEmailScreen = props => {
             dimensions.width
           )}
         >
-          {/* View 2 */}
+          {/* Go back Wrapper */}
           <View>
+            {/* Go back Button */}
             <IconButton
               onPress={() => {
                 try {
@@ -61,7 +86,7 @@ const ContinueWithEmailScreen = props => {
               size={24}
             />
           </View>
-
+          {/* Close Wrapper */}
           <View
             style={StyleSheet.applyWidth(
               {
@@ -76,7 +101,7 @@ const ContinueWithEmailScreen = props => {
               dimensions.width
             )}
           >
-            {/* Icon Button 2 */}
+            {/* Close Button */}
             <IconButton
               onPress={() => {
                 try {
@@ -93,7 +118,7 @@ const ContinueWithEmailScreen = props => {
             />
           </View>
         </View>
-        {/* Input Wrapper */}
+        {/* Form */}
         <View
           style={StyleSheet.applyWidth(
             {
@@ -145,15 +170,24 @@ const ContinueWithEmailScreen = props => {
           {/* Email Field */}
           <TextInput
             autoCapitalize={'none'}
+            autoCorrect={true}
             changeTextDelay={500}
             onChangeText={newEmailFieldValue => {
               try {
-                setTextInputValue(newEmailFieldValue);
+                const valueoZHyPKv2 = newEmailFieldValue;
+                setEmailFieldValue(valueoZHyPKv2);
+                const savedEmail = valueoZHyPKv2;
+                const emailValidationResult = validateEmail(savedEmail);
+                const mergedState = mergeState(
+                  errors,
+                  'email',
+                  emailValidationResult
+                );
+                setErrors(mergedState);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Enter a value...'}
             webShowOutline={true}
             placeholder={'Email'}
             placeholderTextColor={theme.colors['Light']}
@@ -178,7 +212,44 @@ const ContinueWithEmailScreen = props => {
               },
               dimensions.width
             )}
-            value={textInputValue}
+            value={emailFieldValue}
+          />
+          <SimpleStyleFlatList
+            data={errors?.email}
+            horizontal={false}
+            inverted={false}
+            keyExtractor={(listData, index) => index}
+            keyboardShouldPersistTaps={'never'}
+            listKey={'jmKgkrNb'}
+            nestedScrollEnabled={false}
+            numColumns={1}
+            onEndReachedThreshold={0.5}
+            renderItem={({ item, index }) => {
+              const listData = item;
+              return (
+                <>
+                  {/* Error */}
+                  <Text
+                    accessible={true}
+                    {...GlobalStyles.TextStyles(theme)['Text'].props}
+                    style={StyleSheet.applyWidth(
+                      StyleSheet.compose(
+                        GlobalStyles.TextStyles(theme)['Text'].style,
+                        {
+                          color: theme.colors['Error'],
+                          fontFamily: 'Raleway_600SemiBold',
+                        }
+                      ),
+                      dimensions.width
+                    )}
+                  >
+                    {listData}
+                  </Text>
+                </>
+              );
+            }}
+            showsHorizontalScrollIndicator={true}
+            showsVerticalScrollIndicator={true}
           />
         </View>
         {/* Footer Wrapper */}
@@ -197,25 +268,36 @@ const ContinueWithEmailScreen = props => {
         >
           {/* Screen nav link */}
           <Button
-            onLongPress={() => {
-              try {
-                navigation.navigate('AuthNavigator', {
-                  screen: 'SignInScreen',
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
             onPress={() => {
-              try {
-                navigation.navigate('AuthNavigator', {
-                  screen: 'SignUpScreen',
-                });
-              } catch (err) {
-                console.error(err);
-              }
+              const handler = async () => {
+                try {
+                  const searchedEmail = (
+                    await backend$v1$checkEmailPOST.mutateAsync({
+                      email: emailFieldValue,
+                    })
+                  )?.json;
+                  if (searchedEmail) {
+                    if (searchedEmail?.exists) {
+                      navigation.push('AuthNavigator', {
+                        screen: 'SignInScreen',
+                        params: { email: searchedEmail },
+                      });
+                    } else {
+                      navigation.push('AuthNavigator', {
+                        screen: 'SignUpScreen',
+                        params: { email: searchedEmail },
+                      });
+                    }
+                  } else {
+                  }
+                } catch (err) {
+                  console.error(err);
+                }
+              };
+              handler();
             }}
             {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            disabled={!emailFieldValue || errors?.email?.length > 0}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.ButtonStyles(theme)['Button'].style,

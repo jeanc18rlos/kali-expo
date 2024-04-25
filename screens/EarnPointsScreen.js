@@ -1,22 +1,19 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
-  IconButton,
+  HStack,
   ScreenContainer,
-  Swiper,
-  SwiperItem,
   VStack,
   withTheme,
 } from '@draftbit/ui';
-import { ImageBackground, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 
 const EarnPointsScreen = props => {
-  const { theme, navigation } = props;
+  const { theme } = props;
   const dimensions = useWindowDimensions();
 
   return (
@@ -24,12 +21,18 @@ const EarnPointsScreen = props => {
       hasSafeArea={false}
       scrollable={false}
       hasTopSafeArea={true}
+      style={StyleSheet.applyWidth(
+        { alignContent: 'flex-start' },
+        dimensions.width
+      )}
     >
       <View
         style={StyleSheet.applyWidth(
           {
             alignItems: 'stretch',
+            alignSelf: 'auto',
             flex: 1,
+            flexDirection: 'column',
             justifyContent: 'space-between',
             padding: 12,
             paddingBottom: 40,
@@ -40,129 +43,150 @@ const EarnPointsScreen = props => {
           dimensions.width
         )}
       >
-        {/* Header Wrapper */}
-        <View
+        <VStack
+          {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
-            {
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 16,
-            },
+            GlobalStyles.VStackStyles(theme)['V Stack'].style,
             dimensions.width
           )}
         >
-          {/* View 2 */}
-          <View>
-            <IconButton
-              onPress={() => {
-                try {
-                  navigation.goBack();
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              color={theme.colors['Custom Color_2']}
-              icon={'AntDesign/left'}
-              size={24}
-            />
-          </View>
-
-          <View
+          {/* Text 2 */}
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['Text'].props}
             style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'center',
-                backgroundColor: theme.colors['Custom Color_4'],
-                borderRadius: 22,
-                height: 32,
-                justifyContent: 'center',
-                width: 32,
-              },
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+                alignSelf: 'flex-end',
+                color: 'rgb(52, 52, 52)',
+                fontFamily: 'Raleway_500Medium',
+                marginBottom: 28,
+                textDecorationLine: 'underline',
+              }),
               dimensions.width
             )}
           >
-            {/* Icon Button 2 */}
-            <IconButton
-              onPress={() => {
-                try {
-                  navigation.navigate('AuthNavigator', {
-                    screen: 'WelcomeScreen',
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              color={theme.colors['Custom Color_3']}
-              icon={'AntDesign/close'}
-              size={24}
-            />
-          </View>
-        </View>
+            {'SKIP'}
+          </Text>
 
-        <Swiper
-          dotActiveColor={theme.colors.primary}
-          dotColor={theme.colors.light}
-          dotsTouchable={true}
-          loop={false}
-          minDistanceForAction={0.2}
-          minDistanceToCapture={5}
-          timeout={0}
-          vertical={false}
-          {...GlobalStyles.SwiperStyles(theme)['Swiper'].props}
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+                alignSelf: 'center',
+                color: theme.colors['Typography Color'],
+                fontFamily: 'Raleway_700Bold',
+                fontSize: 24,
+                textAlign: 'center',
+              }),
+              dimensions.width
+            )}
+          >
+            {'Take steps to earn \npoints. '}
+          </Text>
+        </VStack>
+
+        <VStack
+          {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
             StyleSheet.compose(
-              GlobalStyles.SwiperStyles(theme)['Swiper'].style,
-              { alignSelf: 'stretch', flex: 1 }
+              GlobalStyles.VStackStyles(theme)['V Stack'].style,
+              {
+                alignItems: 'center',
+                borderRadius: 6,
+                justifyContent: 'flex-end',
+              }
             ),
             dimensions.width
           )}
         >
-          <SwiperItem
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['Text'].props}
             style={StyleSheet.applyWidth(
-              {
-                alignContent: 'flex-start',
-                alignItems: 'stretch',
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
                 alignSelf: 'stretch',
-                gap: 16,
-                justifyContent: 'space-around',
-              },
+                color: 'rgb(52, 52, 52)',
+                fontFamily: 'Raleway_500Medium',
+                fontSize: 16,
+                lineHeight: 19,
+                marginBottom: 8,
+                textAlign: 'center',
+              }),
               dimensions.width
             )}
           >
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {'We track your fitness and reward Kali points'}
+          </Text>
+          {/* Text 2 */}
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+                alignSelf: 'stretch',
+                color: 'rgb(52, 52, 52)',
+                fontFamily: 'Raleway_300Light',
+                fontSize: 16,
+                textAlign: 'center',
+              }),
+              dimensions.width
+            )}
+          >
+            {"For each step you take, you'll earn 1 Kali point."}
+          </Text>
+
+          <HStack
+            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.HStackStyles(theme)['H Stack'].style,
+                { height: 16, marginBottom: 16, marginTop: 16 }
+              ),
+              dimensions.width
+            )}
+          >
+            <View
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  { fontFamily: 'Raleway_700Bold', fontSize: 24 }
-                ),
+                {
+                  backgroundColor: theme.colors['Typography Color'],
+                  borderRadius: 5,
+                  height: 5,
+                  marginRight: 4,
+                  width: 22,
+                },
                 dimensions.width
               )}
-            >
-              {'Take steps to earn points. '}
-            </Text>
-
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+            />
+            {/* View 2 */}
+            <View
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  { fontFamily: 'Raleway_500Medium', fontSize: 16 }
-                ),
+                {
+                  backgroundColor: 'rgb(171, 171, 171)',
+                  borderRadius: 3,
+                  height: 5,
+                  marginRight: 4,
+                  width: 8,
+                },
                 dimensions.width
               )}
-            >
-              {'We track your fitness and reward Kali Points'}
-            </Text>
-          </SwiperItem>
-        </Swiper>
-
-        <View>
+            />
+            {/* View 3 */}
+            <View
+              style={StyleSheet.applyWidth(
+                {
+                  backgroundColor: 'rgb(171, 171, 171)',
+                  borderRadius: 3,
+                  height: 5,
+                  marginRight: 4,
+                  width: 8,
+                },
+                dimensions.width
+              )}
+            />
+          </HStack>
           {/* Button 2 */}
           <Button
-            title={'Get Started'}
             {...GlobalStyles.ButtonStyles(theme)['Button'].props}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
@@ -172,12 +196,14 @@ const EarnPointsScreen = props => {
                   borderRadius: 31,
                   fontFamily: 'Rubik_600SemiBold',
                   padding: 20,
+                  width: '100%',
                 }
               ),
               dimensions.width
             )}
+            title={'Next'}
           />
-        </View>
+        </VStack>
       </View>
     </ScreenContainer>
   );

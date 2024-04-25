@@ -1,7 +1,13 @@
 import { Image } from 'react-native';
 import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
-import { AntDesign, Entypo, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import {
+  AntDesign,
+  Entypo,
+  Ionicons,
+  MaterialCommunityIcons,
+  MaterialIcons,
+} from '@expo/vector-icons';
 
 import IMAGES from './Images.js';
 
@@ -25,6 +31,7 @@ export default function cacheAssetsAsync() {
     AntDesign.font,
     Entypo.font,
     Ionicons.font,
+    MaterialCommunityIcons.font,
     MaterialIcons.font,
   ]);
 

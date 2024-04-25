@@ -1,5 +1,8 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as AuthApi from '../apis/AuthApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import mergeState from '../global-functions/mergeState';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -8,6 +11,7 @@ import {
   IconButton,
   KeyboardAvoidingView,
   ScreenContainer,
+  SimpleStyleFlatList,
   TextInput,
   withTheme,
 } from '@draftbit/ui';
@@ -16,7 +20,42 @@ import { Text, View } from 'react-native';
 const SignUpScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
+  const [errors, setErrors] = React.useState({ password: [] });
+  const [isPasswordHidden, setIsPasswordHidden] = React.useState(true);
+  const [passwordFieldValue, setPasswordFieldValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
+  const validatePassword = password => {
+    const trimmedPw = password.trim();
+
+    const errors = [];
+
+    const digitRegex = /\d/;
+    const symbolRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    const uppercaseRegex = /[A-Z]/;
+    const lowercaseRegex = /[a-z]/;
+
+    if (Boolean(trimmedPw)) {
+      if (trimmedPw.length < 8)
+        errors.push('Password should have at least 8 characters');
+      if (trimmedPw.length > 20)
+        errors.push('Password should not have more than 20 characters');
+      if (!digitRegex.test(trimmedPw))
+        errors.push('Password should have at least 1 number');
+      if (!symbolRegex.test(trimmedPw))
+        errors.push('Password should have at least 1 symbol');
+      if (!uppercaseRegex.test(trimmedPw))
+        errors.push('Password should have at least 1 Uppercase character');
+      if (!lowercaseRegex.test(trimmedPw))
+        errors.push('Password should have at least 1 Lowercase character');
+    } else {
+      errors.push('Password cannot be empty');
+    }
+
+    return errors;
+  };
 
   return (
     <ScreenContainer
@@ -148,19 +187,28 @@ const SignUpScreen = props => {
           {/* Password Field */}
           <TextInput
             autoCapitalize={'none'}
+            autoCorrect={true}
             changeTextDelay={500}
             onChangeText={newPasswordFieldValue => {
               try {
-                setTextInputValue(newPasswordFieldValue);
+                const valueCq42WbBM = newPasswordFieldValue;
+                setPasswordFieldValue(valueCq42WbBM);
+                const savedPassword = valueCq42WbBM;
+                const passwordValidationResult =
+                  validatePassword(savedPassword);
+                const mergedState = mergeState(
+                  errors,
+                  'password',
+                  passwordValidationResult
+                );
+                setErrors(mergedState);
               } catch (err) {
                 console.error(err);
               }
             }}
-            placeholder={'Enter a value...'}
             webShowOutline={true}
             placeholder={'Password'}
             placeholderTextColor={theme.colors['Light']}
-            secureTextEntry={true}
             style={StyleSheet.applyWidth(
               {
                 borderBottomWidth: 1,
@@ -182,8 +230,49 @@ const SignUpScreen = props => {
               },
               dimensions.width
             )}
-            value={textInputValue}
+            value={passwordFieldValue}
           />
+          <>
+            {!(errors?.password?.length > 0) ? null : (
+              <SimpleStyleFlatList
+                data={errors?.password}
+                horizontal={false}
+                inverted={false}
+                keyExtractor={(listData, index) => index}
+                keyboardShouldPersistTaps={'never'}
+                listKey={'DDcERYKm'}
+                nestedScrollEnabled={false}
+                numColumns={1}
+                onEndReachedThreshold={0.5}
+                renderItem={({ item, index }) => {
+                  const listData = item;
+                  return (
+                    <>
+                      {/* Error */}
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['Text'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'].style,
+                            {
+                              color: theme.colors['Error'],
+                              fontFamily: 'Raleway_600SemiBold',
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {listData}
+                      </Text>
+                    </>
+                  );
+                }}
+                showsHorizontalScrollIndicator={true}
+                showsVerticalScrollIndicator={true}
+              />
+            )}
+          </>
         </View>
         {/* Footer Wrapper */}
         <View
@@ -201,7 +290,40 @@ const SignUpScreen = props => {
         >
           {/* Screen nav link */}
           <Button
+            onPress={() => {
+              const handler = async () => {
+                try {
+                  const SignUpResponse = (
+                    await AuthApi.signUpPOST(Constants, {
+                      signupEmail: props.route?.params?.email ?? null,
+                      signupPassword: passwordFieldValue,
+                    })
+                  )?.json;
+                  if (SignUpResponse?.error_code) {
+                    const message = SignUpResponse?.msg;
+                    setGlobalVariableValue({
+                      key: 'ERROR_MESSAGE',
+                      value: message,
+                    });
+                    if (message) {
+                      return;
+                    }
+                  } else {
+                    const access_token = SignUpResponse?.access_token;
+                    setGlobalVariableValue({
+                      key: 'AUTHORIZATION_HEADER',
+                      value: access_token?.addBearerPrefix,
+                    });
+                    navigation.navigate('OnboardingNavigator');
+                  }
+                } catch (err) {
+                  console.error(err);
+                }
+              };
+              handler();
+            }}
             {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            disabled={!passwordFieldValue || errors?.password?.length > 0}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.ButtonStyles(theme)['Button'].style,

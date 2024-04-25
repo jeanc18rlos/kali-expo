@@ -1,5 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import { parseBoolean } from '../utils';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -16,8 +18,10 @@ import { Text, View } from 'react-native';
 const SignInScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const [error, setError] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
-  const [textInputValue2, setTextInputValue2] = React.useState('');
 
   return (
     <ScreenContainer
@@ -146,6 +150,7 @@ const SignInScreen = props => {
           {/* Password Field */}
           <TextInput
             autoCapitalize={'none'}
+            autoCorrect={true}
             changeTextDelay={500}
             onChangeText={newPasswordFieldValue => {
               try {
@@ -154,7 +159,6 @@ const SignInScreen = props => {
                 console.error(err);
               }
             }}
-            placeholder={'Enter a value...'}
             webShowOutline={true}
             placeholder={'Password'}
             placeholderTextColor={theme.colors['Light']}
@@ -182,6 +186,27 @@ const SignInScreen = props => {
             )}
             value={textInputValue}
           />
+          {/* Error */}
+          <>
+            {!parseBoolean(error) ? null : (
+              <Text
+                accessible={true}
+                {...GlobalStyles.TextStyles(theme)['Text'].props}
+                style={StyleSheet.applyWidth(
+                  StyleSheet.compose(
+                    GlobalStyles.TextStyles(theme)['Text'].style,
+                    {
+                      color: theme.colors['Error'],
+                      fontFamily: 'Raleway_600SemiBold',
+                    }
+                  ),
+                  dimensions.width
+                )}
+              >
+                {error}
+              </Text>
+            )}
+          </>
         </View>
         {/* Footer Wrapper */}
         <View
@@ -199,7 +224,15 @@ const SignInScreen = props => {
         >
           {/* Screen nav link */}
           <Button
+            onPress={() => {
+              try {
+                /* 'API Request' action requires configuration: choose an API endpoint */
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            disabled={!textInputValue}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
                 GlobalStyles.ButtonStyles(theme)['Button'].style,

@@ -6,7 +6,13 @@ const ShopHomeScreen = props => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
 
-  return <ScreenContainer hasSafeArea={false} scrollable={false} />;
+  return (
+    <ScreenContainer
+      hasSafeArea={false}
+      scrollable={false}
+      hasTopSafeArea={true}
+    />
+  );
 };
 
 export default withTheme(ShopHomeScreen);

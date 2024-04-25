@@ -3,8 +3,20 @@ import { View, ActivityIndicator } from 'react-native';
 import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const DeviceVariables = { __env__: 'Development' };
-export const AppVariables = {};
+export const DeviceVariables = {
+  AUTHORIZATION_HEADER: '',
+  STRIPE_PUBLISHABLE_KEY:
+    'pk_test_51LxYOPBKrk3FAhWNuhXIPgW68QOuNR8gCBeHfPrAvIzGpuuXyR7Y5HfmzLL5TYHwQLoByXek7ljJRGSXlfxstp9W00KViIwwqq',
+  __env__: 'Development',
+};
+export const AppVariables = {
+  API_KEY_HEADER:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xYW91bmFtamV5c3dhcGhoZHdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTMxMTE3MDgsImV4cCI6MjAyODY4NzcwOH0.m7YIAadlQp6_wj9ZOX0sBzBO-Qi_DRWkJhllk1pvFBg',
+  ERROR_MESSAGE: '',
+  isStepTrackerAvailable: 'checking',
+  todayStepsCount: 0,
+  yesterdayStepsCount: 0,
+};
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();
 const keySuffix = '';

@@ -144,6 +144,7 @@ const ForgotPasswordScreen = props => {
           {/* Password Field */}
           <TextInput
             autoCapitalize={'none'}
+            autoCorrect={true}
             changeTextDelay={500}
             onChangeText={newPasswordFieldValue => {
               try {
@@ -152,7 +153,6 @@ const ForgotPasswordScreen = props => {
                 console.error(err);
               }
             }}
-            placeholder={'Enter a value...'}
             webShowOutline={true}
             placeholder={'Password'}
             placeholderTextColor={theme.colors['Light']}

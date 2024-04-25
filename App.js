@@ -39,9 +39,9 @@ const App = () => {
   const [fontsLoaded] = useFonts({
     Inter_600SemiBold: Fonts.Inter_600SemiBold,
     Raleway_500Medium: Fonts.Raleway_500Medium,
+    Raleway_600SemiBold: Fonts.Raleway_600SemiBold,
     Raleway_700Bold: Fonts.Raleway_700Bold,
     Raleway_400Regular: Fonts.Raleway_400Regular,
-    Raleway_600SemiBold: Fonts.Raleway_600SemiBold,
     Raleway_300Light: Fonts.Raleway_300Light,
     Rubik_600SemiBold: Fonts.Rubik_600SemiBold,
   });

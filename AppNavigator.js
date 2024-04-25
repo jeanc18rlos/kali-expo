@@ -67,6 +67,7 @@ function ActivityNavigator() {
         name="MyActivityScreen"
         component={MyActivityScreen}
         options={({ navigation }) => ({
+          headerShown: false,
           title: 'My activity',
         })}
       />
@@ -80,6 +81,7 @@ function ProfileNavigator() {
       screenOptions={({ navigation }) => ({
         headerBackImage:
           Platform.OS === 'android' ? DefaultAndroidBackIcon : null,
+        headerShown: false,
       })}
     >
       <Stack.Screen
@@ -140,6 +142,7 @@ function ShopNavigator() {
         name="ShopHomeScreen"
         component={ShopHomeScreen}
         options={({ navigation }) => ({
+          headerShown: false,
           title: 'Shop home',
         })}
       />
@@ -147,6 +150,7 @@ function ShopNavigator() {
         name="ShopSearchScreen"
         component={ShopSearchScreen}
         options={({ navigation }) => ({
+          headerShown: false,
           title: 'Shop search',
         })}
       />
@@ -168,6 +172,7 @@ function ShopNavigator() {
         name="BrandProfileScreen"
         component={BrandProfileScreen}
         options={({ navigation }) => ({
+          headerShown: false,
           title: 'Brand profile',
         })}
       />
@@ -350,6 +355,7 @@ function OnboardingNavigator() {
       screenOptions={({ navigation }) => ({
         headerBackImage:
           Platform.OS === 'android' ? DefaultAndroidBackIcon : null,
+        headerShown: false,
       })}
     >
       <Stack.Screen
@@ -357,6 +363,7 @@ function OnboardingNavigator() {
         component={EarnPointsScreen}
         options={({ navigation }) => ({
           headerShown: false,
+          headerTitleAlign: 'center',
           title: 'Earn points',
         })}
       />
@@ -364,20 +371,15 @@ function OnboardingNavigator() {
         name="RedeemPointsScreen"
         component={RedeemPointsScreen}
         options={({ navigation }) => ({
+          headerShown: false,
           title: 'Redeem points',
-        })}
-      />
-      <Stack.Screen
-        name="KeepConsistencyScreen"
-        component={KeepConsistencyScreen}
-        options={({ navigation }) => ({
-          title: 'Keep consistency',
         })}
       />
       <Stack.Screen
         name="ConnectStepTrackerScreen"
         component={ConnectStepTrackerScreen}
         options={({ navigation }) => ({
+          headerShown: false,
           title: 'Connect step tracker',
         })}
       />
@@ -392,6 +394,7 @@ function OnboardingNavigator() {
         name="SetFirstNameScreen"
         component={SetFirstNameScreen}
         options={({ navigation }) => ({
+          headerShown: false,
           title: 'Set first name',
         })}
       />
@@ -400,6 +403,14 @@ function OnboardingNavigator() {
         component={AllowNotificationsScreen}
         options={({ navigation }) => ({
           title: 'Allow notifications',
+        })}
+      />
+      <Stack.Screen
+        name="KeepConsistencyScreen"
+        component={KeepConsistencyScreen}
+        options={({ navigation }) => ({
+          headerShown: false,
+          title: 'Keep Consistency',
         })}
       />
     </Stack.Navigator>

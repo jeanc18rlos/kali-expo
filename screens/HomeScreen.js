@@ -4,6 +4,9 @@ import ActivitybarBlock from '../components/ActivitybarBlock';
 import DailyBonusBarBlock from '../components/DailyBonusBarBlock';
 import ProgressCircleBlock from '../components/ProgressCircleBlock';
 import StreakbarBlock from '../components/StreakbarBlock';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import * as PedoMeterLight from '../custom-files/PedoMeterLight';
+import * as Utils from '../utils';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -19,6 +22,8 @@ import { ScrollView, View } from 'react-native';
 const HomeScreen = props => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
 
   return (
     <ScreenContainer
@@ -97,7 +102,10 @@ const HomeScreen = props => {
               dimensions.width
             )}
           >
-            <ProgressCircleBlock />
+            <ProgressCircleBlock
+              goal={1000}
+              steps={Constants['todayStepsCount']}
+            />
           </View>
           {/* View 3 */}
           <View>
@@ -126,6 +134,9 @@ const HomeScreen = props => {
           </VStack>
         </VStack>
       </ScrollView>
+      <Utils.CustomCodeErrorBoundary>
+        <PedoMeterLight.Button />
+      </Utils.CustomCodeErrorBoundary>
     </ScreenContainer>
   );
 };
