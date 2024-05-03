@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import Images from '../config/Images';
+import * as GlobalVariables from '../config/GlobalVariableContext';
+import * as CustomCode from '../custom-files/CustomCode';
 import * as KIcon from '../custom-files/KIcon';
 import * as KaliCoinSVG from '../custom-files/KaliCoinSVG';
 import * as Utils from '../utils';
@@ -8,8 +9,6 @@ import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
-  ActionSheet,
-  ActionSheetItem,
   BottomSheet,
   HStack,
   Icon,
@@ -25,8 +24,13 @@ import { Image, Text, View } from 'react-native';
 const MyProfileScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [emailFieldValue, setEmailFieldValue] = React.useState('');
+  const [error, setError] = React.useState('');
   const [errors, setErrors] = React.useState({});
+  const [isPressed, setIsPressed] = React.useState(false);
+  const [showSignOff, setShowSignOff] = React.useState(false);
   const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
@@ -78,7 +82,7 @@ const MyProfileScreen = props => {
             dimensions.width
           )}
         >
-          {'PROFILE'}
+          {'PROFILE '}
         </Text>
         {/* Close Wrapper */}
         <View
@@ -99,8 +103,9 @@ const MyProfileScreen = props => {
           <IconButton
             onPress={() => {
               try {
-                navigation.navigate('AuthNavigator', {
-                  screen: 'WelcomeScreen',
+                navigation.navigate('AppTabNavigator', {
+                  screen: 'ProfileNavigator',
+                  params: { screen: 'EditProfileScreen' },
                 });
               } catch (err) {
                 console.error(err);
@@ -137,7 +142,9 @@ const MyProfileScreen = props => {
             <Image
               resizeMode={'cover'}
               {...GlobalStyles.ImageStyles(theme)['Image'].props}
-              source={Images.Ad0a5d7be851d24e2994f8549f8f9370}
+              source={{
+                uri: `${Constants['user_profile']?.data?.profile_image}`,
+              }}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
                   GlobalStyles.ImageStyles(theme)['Image'].style,
@@ -150,7 +157,12 @@ const MyProfileScreen = props => {
           {/* User Info */}
           <View
             style={StyleSheet.applyWidth(
-              { alignItems: 'flex-start', alignSelf: 'stretch', flex: 1 },
+              {
+                alignItems: 'flex-start',
+                alignSelf: 'stretch',
+                flex: 1,
+                gap: 6,
+              },
               dimensions.width
             )}
           >
@@ -171,7 +183,8 @@ const MyProfileScreen = props => {
                 dimensions.width
               )}
             >
-              {'Hi, Carlos!'}
+              {'Hi, '}
+              {null}
             </Text>
             {/* Text 3 */}
             <Text
@@ -191,7 +204,9 @@ const MyProfileScreen = props => {
                 dimensions.width
               )}
             >
-              {'Hi, Carlos!'}
+              {'Hi, '}
+              {textInputValue}
+              {'!'}
             </Text>
 
             <Pressable
@@ -204,9 +219,9 @@ const MyProfileScreen = props => {
                 color2={theme.colors['Custom Color_29']}
                 color3={theme.colors['Custom Color_30']}
                 endX={10}
-                endY={20}
-                startX={10}
-                startY={20}
+                endY={100}
+                startX={100}
+                startY={100}
                 style={StyleSheet.applyWidth(
                   StyleSheet.compose(
                     GlobalStyles.LinearGradientStyles(theme)['Linear Gradient']
@@ -502,8 +517,8 @@ const MyProfileScreen = props => {
           onPress={() => {
             try {
               navigation.push('AppTabNavigator', {
-                screen: 'ProfileNavigator',
-                params: { screen: 'MyProfileScreen' },
+                screen: 'ShopNavigator',
+                params: { screen: 'FavoritesScreen' },
               });
             } catch (err) {
               console.error(err);
@@ -809,10 +824,7 @@ const MyProfileScreen = props => {
         <Pressable
           onPress={() => {
             try {
-              navigation.push('AppTabNavigator', {
-                screen: 'ProfileNavigator',
-                params: { screen: 'MyProfileScreen' },
-              });
+              setShowSignOff(true);
             } catch (err) {
               console.error(err);
             }
@@ -883,63 +895,215 @@ const MyProfileScreen = props => {
           </View>
         </Pressable>
       </SimpleStyleScrollView>
-
-      <BottomSheet
-        borderColor={theme.colors.divider}
-        borderWidth={1}
-        bottomSnapPosition={'80%'}
-        bounces={true}
-        enableOverScroll={false}
-        friction={0.95}
-        handleColor={theme.colors.divider}
-        initialSnapPosition={'bottom'}
-        middleSnapPosition={'50%'}
-        showHandle={true}
-        showsVerticalScrollIndicator={true}
-        topBorderRadius={20}
-        topSnapPosition={'10%'}
-        {...GlobalStyles.BottomSheetStyles(theme)['Bottom Sheet'].props}
-        style={StyleSheet.applyWidth(
-          GlobalStyles.BottomSheetStyles(theme)['Bottom Sheet'].style,
-          dimensions.width
-        )}
-      >
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['Text'].props}
-          style={StyleSheet.applyWidth(
-            GlobalStyles.TextStyles(theme)['Text'].style,
-            dimensions.width
-          )}
-        >
-          {'Double click me to edit 👀'}
-        </Text>
-        {/* Text 2 */}
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['Text'].props}
-          style={StyleSheet.applyWidth(
-            GlobalStyles.TextStyles(theme)['Text'].style,
-            dimensions.width
-          )}
-        >
-          {'Double click me to edit 👀'}
-        </Text>
-
-        <ActionSheet>
-          <ActionSheetItem
-            color={theme.colors.strong}
-            label={'Option'}
-            {...GlobalStyles.ActionSheetItemStyles(theme)['Action Sheet Item']
-              .props}
+      <>
+        {!showSignOff ? null : (
+          <BottomSheet
+            borderWidth={1}
+            bottomSnapPosition={'80%'}
+            friction={0.95}
+            handleColor={theme.colors.divider}
+            middleSnapPosition={'50%'}
+            showHandle={true}
+            showsVerticalScrollIndicator={true}
+            topBorderRadius={20}
+            topSnapPosition={'10%'}
+            {...GlobalStyles.BottomSheetStyles(theme)['Bottom Sheet'].props}
+            borderColor={theme.colors['Custom Color_2']}
+            bounces={true}
+            enableOverScroll={false}
+            initialSnapPosition={'middle'}
             style={StyleSheet.applyWidth(
-              GlobalStyles.ActionSheetItemStyles(theme)['Action Sheet Item']
-                .style,
+              StyleSheet.compose(
+                GlobalStyles.BottomSheetStyles(theme)['Bottom Sheet'].style,
+                { gap: 24, padding: 16 }
+              ),
               dimensions.width
             )}
-          />
-        </ActionSheet>
-      </BottomSheet>
+          >
+            {/* Header Wrapper */}
+            <View
+              style={StyleSheet.applyWidth(
+                { flexDirection: 'row', justifyContent: 'space-between' },
+                dimensions.width
+              )}
+            >
+              {/* View 2 */}
+              <View></View>
+
+              <View
+                style={StyleSheet.applyWidth(
+                  {
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    backgroundColor: 'rgb(245, 245, 245)',
+                    borderRadius: 22,
+                    height: 32,
+                    justifyContent: 'center',
+                    width: 32,
+                  },
+                  dimensions.width
+                )}
+              >
+                {/* Icon Button 2 */}
+                <IconButton
+                  color={theme.colors['Custom Color_3']}
+                  icon={'AntDesign/close'}
+                  size={24}
+                />
+              </View>
+            </View>
+            {/* View 2 */}
+            <View style={StyleSheet.applyWidth({ gap: 24 }, dimensions.width)}>
+              {/* View 3 */}
+              <View>
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['Text'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['Text'].style,
+                      {
+                        color: 'rgb(18, 18, 18)',
+                        fontFamily: 'Raleway_700Bold',
+                        fontSize: 24,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'Sign Off'}
+                </Text>
+                {/* Text 2 */}
+                <Text
+                  accessible={true}
+                  {...GlobalStyles.TextStyles(theme)['Text'].props}
+                  style={StyleSheet.applyWidth(
+                    StyleSheet.compose(
+                      GlobalStyles.TextStyles(theme)['Text'].style,
+                      {
+                        alignSelf: 'flex-start',
+                        color: 'rgb(18, 18, 18)',
+                        fontFamily: 'Raleway_400Regular',
+                        fontSize: 16,
+                      }
+                    ),
+                    dimensions.width
+                  )}
+                >
+                  {'Are you sure you want to close your session'}
+                </Text>
+              </View>
+
+              <View style={StyleSheet.applyWidth({ gap: 8 }, dimensions.width)}>
+                {/* Pressable  */}
+                <Pressable
+                  onPress={() => {
+                    try {
+                      /* 'Set Variable' action requires configuration: choose a variable */
+                    } catch (err) {
+                      console.error(err);
+                    }
+                  }}
+                >
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        alignSelf: 'stretch',
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        borderColor: 'rgb(82, 82, 82)',
+                        borderRadius: 31,
+                        borderTopWidth: 1,
+                        borderWidth: 1,
+                        flexDirection: 'row',
+                        gap: 16,
+                        paddingBottom: 16,
+                        paddingTop: 16,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', flex: 100, gap: 2 },
+                        dimensions.width
+                      )}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['Text'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'].style,
+                            {
+                              alignSelf: 'center',
+                              color: 'rgb(31, 41, 55)',
+                              fontFamily: 'Raleway_500Medium',
+                              fontSize: 16,
+                              lineHeight: 16,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'Yes'}
+                      </Text>
+                    </View>
+                  </View>
+                </Pressable>
+                {/* Pressable  2 */}
+                <Pressable>
+                  <View
+                    style={StyleSheet.applyWidth(
+                      {
+                        alignItems: 'center',
+                        alignSelf: 'stretch',
+                        backgroundColor: 'rgb(255, 255, 255)',
+                        borderColor: 'rgb(82, 82, 82)',
+                        borderRadius: 31,
+                        borderTopWidth: 1,
+                        borderWidth: 1,
+                        flexDirection: 'row',
+                        gap: 16,
+                        paddingBottom: 16,
+                        paddingTop: 16,
+                      },
+                      dimensions.width
+                    )}
+                  >
+                    <View
+                      style={StyleSheet.applyWidth(
+                        { alignItems: 'flex-start', flex: 100, gap: 2 },
+                        dimensions.width
+                      )}
+                    >
+                      <Text
+                        accessible={true}
+                        {...GlobalStyles.TextStyles(theme)['Text'].props}
+                        style={StyleSheet.applyWidth(
+                          StyleSheet.compose(
+                            GlobalStyles.TextStyles(theme)['Text'].style,
+                            {
+                              alignSelf: 'center',
+                              color: 'rgb(31, 41, 55)',
+                              fontFamily: 'Raleway_500Medium',
+                              fontSize: 16,
+                              lineHeight: 16,
+                            }
+                          ),
+                          dimensions.width
+                        )}
+                      >
+                        {'No'}
+                      </Text>
+                    </View>
+                  </View>
+                </Pressable>
+              </View>
+            </View>
+          </BottomSheet>
+        )}
+      </>
     </ScreenContainer>
   );
 };

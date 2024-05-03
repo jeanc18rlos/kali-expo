@@ -73,6 +73,21 @@ export const VStackStyles = theme =>
 
 export const TextInputStyles = theme =>
   StyleSheet.create({
+    'Text Area': {
+      style: {
+        borderBottomWidth: 1,
+        borderColor: theme.colors.divider,
+        borderLeftWidth: 1,
+        borderRadius: 8,
+        borderRightWidth: 1,
+        borderTopWidth: 1,
+        paddingBottom: 8,
+        paddingLeft: 8,
+        paddingRight: 8,
+        paddingTop: 8,
+      },
+      props: {},
+    },
     'Text Input': {
       style: {
         borderBottomWidth: 1,
@@ -172,3 +187,25 @@ export const ActionSheetItemStyles = theme =>
   StyleSheet.create({
     'Action Sheet Item': { style: { textAlign: 'center' }, props: {} },
   });
+
+export const NumberInputStyles = theme =>
+  StyleSheet.create({
+    'Number Input': {
+      style: {
+        borderBottomWidth: 1,
+        borderColor: theme.colors.divider,
+        borderLeftWidth: 1,
+        borderRadius: 8,
+        borderRightWidth: 1,
+        borderTopWidth: 1,
+        paddingBottom: 8,
+        paddingLeft: 8,
+        paddingRight: 8,
+        paddingTop: 8,
+      },
+      props: {},
+    },
+  });
+
+export const SurfaceStyles = theme =>
+  StyleSheet.create({ Surface: { style: { minHeight: 40 }, props: {} } });

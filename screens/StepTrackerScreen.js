@@ -13,10 +13,9 @@ import {
 } from '@draftbit/ui';
 import { Text, View } from 'react-native';
 
-const PushNotificationsScreen = props => {
+const StepTrackerScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const [switchRowValue, setSwitchRowValue] = React.useState(false);
   const [switchValue, setSwitchValue] = React.useState(false);
 
   return (
@@ -41,7 +40,7 @@ const PushNotificationsScreen = props => {
         {/* Go back Wrapper */}
         <View
           style={StyleSheet.applyWidth(
-            { flexDirection: 'column' },
+            { flexDirection: 'column', padding: 10 },
             dimensions.width
           )}
         >
@@ -62,7 +61,7 @@ const PushNotificationsScreen = props => {
             size={24}
           />
         </View>
-        {/* Notification Title */}
+        {/* Step Tracker Title */}
         <Text
           accessible={true}
           {...GlobalStyles.TextStyles(theme)['Text'].props}
@@ -77,7 +76,7 @@ const PushNotificationsScreen = props => {
             dimensions.width
           )}
         >
-          {'Notifications'}
+          {'Step Tracker'}
         </Text>
         {/* Close Wrapper */}
         <View
@@ -147,7 +146,7 @@ const PushNotificationsScreen = props => {
                 dimensions.width
               )}
             >
-              {/* Push Notifications */}
+              {/* Enable step tracker */}
               <Text
                 accessible={true}
                 {...GlobalStyles.TextStyles(theme)['Text'].props}
@@ -164,9 +163,9 @@ const PushNotificationsScreen = props => {
                   dimensions.width
                 )}
               >
-                {'Push Notifications'}
+                {'Enable Step Tracker'}
               </Text>
-              {/* Descrption */}
+              {/* Description */}
               <Text
                 accessible={true}
                 {...GlobalStyles.TextStyles(theme)['Text'].props}
@@ -178,7 +177,9 @@ const PushNotificationsScreen = props => {
                   dimensions.width
                 )}
               >
-                {'I want to receive push notifications'}
+                {
+                  'Kali should know the total number of steps \nyour phone detects.'
+                }
               </Text>
             </VStack>
             <Switch
@@ -199,4 +200,4 @@ const PushNotificationsScreen = props => {
   );
 };
 
-export default withTheme(PushNotificationsScreen);
+export default withTheme(StepTrackerScreen);

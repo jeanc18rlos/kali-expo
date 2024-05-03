@@ -1,13 +1,11 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as BackendApi from '../apis/BackendApi.js';
-import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
-  Link,
+  IconButton,
   NumberInput,
   ScreenContainer,
   VStack,
@@ -15,19 +13,88 @@ import {
 } from '@draftbit/ui';
 import { Text, View } from 'react-native';
 
-const SetDailyGoalScreen = props => {
+const GoalScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
-  const Constants = GlobalVariables.useValues();
-  const Variables = Constants;
-  const [numberInputValue, setNumberInputValue] = React.useState('');
   const [numberInputValue2, setNumberInputValue2] = React.useState('');
-  const [sliderValue, setSliderValue] = React.useState(0);
-  const [sliderValue2, setSliderValue2] = React.useState(0);
-  const backendGoalPOST = BackendApi.useGoalPOST();
+  const [numberInputValue, setNumberInputValue] = React.useState(undefined);
 
   return (
     <ScreenContainer hasSafeArea={false} scrollable={false}>
+      {/* Header Wrapper */}
+      <View
+        style={StyleSheet.applyWidth(
+          {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            padding: 16,
+          },
+          dimensions.width
+        )}
+      >
+        {/* Go back Wrapper */}
+        <View style={StyleSheet.applyWidth({ padding: 10 }, dimensions.width)}>
+          {/* Go back Button */}
+          <IconButton
+            onPress={() => {
+              try {
+                navigation.push('AppTabNavigator', {
+                  screen: 'ProfileNavigator',
+                  params: { screen: 'SettingsScreen' },
+                });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            color={theme.colors['Custom Color_2']}
+            icon={'AntDesign/left'}
+            size={24}
+          />
+        </View>
+        {/* Goal */}
+        <Text
+          accessible={true}
+          {...GlobalStyles.TextStyles(theme)['Text'].props}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+              alignSelf: 'center',
+              color: 'rgb(32, 32, 32)',
+              fontFamily: 'Raleway_600SemiBold',
+              fontSize: 16,
+              lineHeight: 24,
+            }),
+            dimensions.width
+          )}
+        >
+          {'Goal'}
+        </Text>
+        <Button
+          onPress={() => {
+            try {
+              /* 'Set Variable' action requires configuration: choose a variable */
+            } catch (err) {
+              console.error(err);
+            }
+          }}
+          {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+          style={StyleSheet.applyWidth(
+            StyleSheet.compose(
+              GlobalStyles.ButtonStyles(theme)['Button'].style,
+              {
+                backgroundColor: '"rgb(240, 240, 240)"',
+                borderRadius: 31,
+                color: 'rgb(48, 48, 48)',
+                fontFamily: 'Raleway_600SemiBold',
+                fontSize: 16,
+                lineHeight: 24,
+              }
+            ),
+            dimensions.width
+          )}
+          title={'Save'}
+        />
+      </View>
+
       <View
         style={StyleSheet.applyWidth(
           {
@@ -56,30 +123,6 @@ const SetDailyGoalScreen = props => {
             dimensions.width
           )}
         >
-          <Link
-            accessible={true}
-            onPress={() => {
-              try {
-                if (navigation.canGoBack()) {
-                  navigation.popToTop();
-                }
-                navigation.replace('AppTabNavigator', { screen: 'HomeScreen' });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            {...GlobalStyles.LinkStyles(theme)['Link'].props}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
-                alignSelf: 'flex-end',
-                color: theme.colors['Typography Color'],
-                fontFamily: 'Raleway_400Regular',
-                textDecorationLine: 'underline',
-              }),
-              dimensions.width
-            )}
-            title={'SKIP'}
-          />
           {/* Text 3 */}
           <Text
             accessible={true}
@@ -180,41 +223,10 @@ const SetDailyGoalScreen = props => {
           >
             {'Set your daily steps goal to earn more Kali \nPoints\n'}
           </Text>
-          {/* Button 2 */}
-          <Button
-            onPress={() => {
-              const handler = async () => {
-                try {
-                  const Goals = (await backendGoalPOST.mutateAsync())?.json;
-                  navigation.push('OnboardingNavigator', {
-                    screen: 'SetFirstNameScreen',
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              };
-              handler();
-            }}
-            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.ButtonStyles(theme)['Button'].style,
-                {
-                  backgroundColor: 'rgb(38, 38, 38)',
-                  borderRadius: 31,
-                  fontFamily: 'Rubik_600SemiBold',
-                  padding: 20,
-                  width: '100%',
-                }
-              ),
-              dimensions.width
-            )}
-            title={'Set up goal'}
-          />
         </VStack>
       </View>
     </ScreenContainer>
   );
 };
 
-export default withTheme(SetDailyGoalScreen);
+export default withTheme(GoalScreen);

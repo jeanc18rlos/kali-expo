@@ -26,8 +26,8 @@ SplashScreen.preventAutoHideAsync();
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
   }),
 });
 
@@ -37,14 +37,41 @@ const App = () => {
   const [areAssetsCached, setAreAssetsCached] = React.useState(false);
 
   const [fontsLoaded] = useFonts({
+    DMSans_500Medium: Fonts.DMSans_500Medium,
+    DMSans_400Regular: Fonts.DMSans_400Regular,
     Inter_600SemiBold: Fonts.Inter_600SemiBold,
+    Raleway_400Regular: Fonts.Raleway_400Regular,
     Raleway_500Medium: Fonts.Raleway_500Medium,
     Raleway_600SemiBold: Fonts.Raleway_600SemiBold,
     Raleway_700Bold: Fonts.Raleway_700Bold,
-    Raleway_400Regular: Fonts.Raleway_400Regular,
     Raleway_300Light: Fonts.Raleway_300Light,
     Rubik_600SemiBold: Fonts.Rubik_600SemiBold,
   });
+
+  const appState = React.useRef(AppState.currentState);
+
+  const handleAppStateChange = nextAppState => {
+    if (
+      appState?.current?.match(/inactive|background/) &&
+      nextAppState === 'active'
+    ) {
+      // reset any badges once the user re-enters the app
+      Notifications.setBadgeCountAsync(0);
+    }
+    // always update the current app state
+    appState.current = nextAppState;
+  };
+
+  React.useEffect(() => {
+    const appStateSubscription = AppState.addEventListener(
+      'change',
+      handleAppStateChange
+    );
+
+    return () => {
+      appStateSubscription.remove();
+    };
+  }, []);
 
   React.useEffect(() => {
     async function prepare() {

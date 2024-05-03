@@ -1,6 +1,8 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as AuthApi from '../apis/AuthApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import addBearerPrefix from '../global-functions/addBearerPrefix';
 import { parseBoolean } from '../utils';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -20,7 +22,10 @@ const SignInScreen = props => {
   const dimensions = useWindowDimensions();
   const Constants = GlobalVariables.useValues();
   const Variables = Constants;
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [error, setError] = React.useState('');
+  const [errors, setErrors] = React.useState({});
+  const [passwordFieldValue, setPasswordFieldValue] = React.useState('');
   const [textInputValue, setTextInputValue] = React.useState('');
 
   return (
@@ -225,11 +230,41 @@ const SignInScreen = props => {
           {/* Screen nav link */}
           <Button
             onPress={() => {
-              try {
-                /* 'API Request' action requires configuration: choose an API endpoint */
-              } catch (err) {
-                console.error(err);
-              }
+              const handler = async () => {
+                try {
+                  const SignUpResponse = (
+                    await AuthApi.loginPOST(Constants, {
+                      email: 'jeanc16rlos@gmail.com',
+                      password: 'mSOSfWeRCbrRVVtVtAVB',
+                    })
+                  )?.json;
+                  if (SignUpResponse?.error_code) {
+                    const message = SignUpResponse?.msg;
+                    setGlobalVariableValue({
+                      key: 'ERROR_MESSAGE',
+                      value: message,
+                    });
+                    if (message) {
+                      return;
+                    }
+                  } else {
+                    const access_token = SignUpResponse?.access_token;
+                    setGlobalVariableValue({
+                      key: 'AUTHORIZATION_HEADER',
+                      value: addBearerPrefix(access_token),
+                    });
+                    if (navigation.canGoBack()) {
+                      navigation.popToTop();
+                    }
+                    navigation.replace('AppTabNavigator', {
+                      screen: 'HomeScreen',
+                    });
+                  }
+                } catch (err) {
+                  console.error(err);
+                }
+              };
+              handler();
             }}
             {...GlobalStyles.ButtonStyles(theme)['Button'].props}
             disabled={!textInputValue}

@@ -5,6 +5,7 @@ import DailyBonusBarBlock from '../components/DailyBonusBarBlock';
 import ProgressCircleBlock from '../components/ProgressCircleBlock';
 import StreakbarBlock from '../components/StreakbarBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import * as CustomCode from '../custom-files/CustomCode';
 import * as PedoMeterLight from '../custom-files/PedoMeterLight';
 import * as Utils from '../utils';
 import Breakpoints from '../utils/Breakpoints';

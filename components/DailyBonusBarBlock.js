@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CustomCode from '../custom-files/CustomCode';
 import * as KIcon from '../custom-files/KIcon';
 import substractMargins from '../global-functions/substractMargins';
 import * as Utils from '../utils';

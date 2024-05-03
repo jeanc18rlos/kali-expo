@@ -14,7 +14,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 
 export const loginPOST = (Constants, { email, password }, handlers = {}) =>
   fetch(
-    `https://mqaounamjeyswaphhdwq.supabase.co/auth/v1/token?grant_type=password`,
+    `https://ahzvsgfgeenirbqjonrk.supabase.co/auth/v1/token?grant_type=password`,
     {
       body: JSON.stringify({ email: email, password: password }),
       headers: {
@@ -81,11 +81,15 @@ export const FetchLoginPOST = ({
 
 export const signUpPOST = (
   Constants,
-  { signupEmail, signupPassword },
+  { signupEmail, signupPassword, timezone },
   handlers = {}
 ) =>
-  fetch(`https://mqaounamjeyswaphhdwq.supabase.co/auth/v1/signup`, {
-    body: JSON.stringify({ email: signupEmail, password: signupPassword }),
+  fetch(`https://ahzvsgfgeenirbqjonrk.supabase.co/auth/v1/signup`, {
+    body: JSON.stringify({
+      email: signupEmail,
+      password: signupPassword,
+      data: { timezone: timezone },
+    }),
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -117,6 +121,7 @@ export const FetchSignUpPOST = ({
   refetchInterval,
   signupEmail,
   signupPassword,
+  timezone,
 }) => {
   const Constants = GlobalVariables.useValues();
   const isFocused = useIsFocused();
@@ -128,7 +133,7 @@ export const FetchSignUpPOST = ({
     error,
     mutate: refetch,
   } = useSignUpPOST(
-    { signupEmail, signupPassword },
+    { signupEmail, signupPassword, timezone },
     { refetchInterval, handlers: { onData, ...handlers } }
   );
 

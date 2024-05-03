@@ -12,6 +12,7 @@ import Breakpoints from './utils/Breakpoints';
 import useWindowDimensions from './utils/useWindowDimensions';
 
 import AllowNotificationsScreen from './screens/AllowNotificationsScreen';
+import AnnualSubscriptionScreen from './screens/AnnualSubscriptionScreen';
 import AuthenticateScreen from './screens/AuthenticateScreen';
 import BrandHomeScreen from './screens/BrandHomeScreen';
 import BrandProfileScreen from './screens/BrandProfileScreen';
@@ -22,10 +23,15 @@ import EarnPointsScreen from './screens/EarnPointsScreen';
 import EditProfileScreen from './screens/EditProfileScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen';
+import GoalScreen from './screens/GoalScreen';
 import HomeScreen from './screens/HomeScreen';
 import KeepConsistencyScreen from './screens/KeepConsistencyScreen';
+import MembershipScreen from './screens/MembershipScreen';
+import MonthlySubscriptionScreen from './screens/MonthlySubscriptionScreen';
 import MyActivityScreen from './screens/MyActivityScreen';
+import MyOrdersScreen from './screens/MyOrdersScreen';
 import MyProfileScreen from './screens/MyProfileScreen';
+import OrderDetailScreen from './screens/OrderDetailScreen';
 import ProductScreen from './screens/ProductScreen';
 import PushNotificationsScreen from './screens/PushNotificationsScreen';
 import RedeemPointsScreen from './screens/RedeemPointsScreen';
@@ -36,6 +42,7 @@ import ShopHomeScreen from './screens/ShopHomeScreen';
 import ShopSearchScreen from './screens/ShopSearchScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
+import StepTrackerScreen from './screens/StepTrackerScreen';
 import UpdateActivityScreen from './screens/UpdateActivityScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
 
@@ -120,10 +127,52 @@ function ProfileNavigator() {
         })}
       />
       <Stack.Screen
-        name="UpdateActivityScreen"
-        component={UpdateActivityScreen}
+        name="StepTrackerScreen"
+        component={StepTrackerScreen}
         options={({ navigation }) => ({
-          title: 'Update activity',
+          title: 'Step Tracker',
+        })}
+      />
+      <Stack.Screen
+        name="GoalScreen"
+        component={GoalScreen}
+        options={({ navigation }) => ({
+          title: 'Goal',
+        })}
+      />
+      <Stack.Screen
+        name="MembershipScreen"
+        component={MembershipScreen}
+        options={({ navigation }) => ({
+          title: 'Membership',
+        })}
+      />
+      <Stack.Screen
+        name="MyOrdersScreen"
+        component={MyOrdersScreen}
+        options={({ navigation }) => ({
+          title: 'My Orders',
+        })}
+      />
+      <Stack.Screen
+        name="AnnualSubscriptionScreen"
+        component={AnnualSubscriptionScreen}
+        options={({ navigation }) => ({
+          title: 'Annual Subscription',
+        })}
+      />
+      <Stack.Screen
+        name="OrderDetailScreen"
+        component={OrderDetailScreen}
+        options={({ navigation }) => ({
+          title: 'Order Detail',
+        })}
+      />
+      <Stack.Screen
+        name="MonthlySubscriptionScreen"
+        component={MonthlySubscriptionScreen}
+        options={({ navigation }) => ({
+          title: 'Monthly Subscription',
         })}
       />
     </Stack.Navigator>
@@ -437,6 +486,13 @@ export default function RootAppNavigator() {
           headerShown: false,
         })}
       >
+        <Stack.Screen
+          name="UpdateActivityScreen"
+          component={UpdateActivityScreen}
+          options={({ navigation }) => ({
+            title: 'Update activity',
+          })}
+        />
         <Stack.Screen name="AppTabNavigator" component={AppTabNavigator} />
         <Stack.Screen name="AuthNavigator" component={AuthNavigator} />
         <Stack.Screen

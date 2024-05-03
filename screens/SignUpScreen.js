@@ -2,6 +2,8 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as AuthApi from '../apis/AuthApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import * as CustomCode from '../custom-files/CustomCode';
+import addBearerPrefix from '../global-functions/addBearerPrefix';
 import mergeState from '../global-functions/mergeState';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -310,11 +312,14 @@ const SignUpScreen = props => {
                     }
                   } else {
                     const access_token = SignUpResponse?.access_token;
-                    setGlobalVariableValue({
+                    const token_auth = setGlobalVariableValue({
                       key: 'AUTHORIZATION_HEADER',
-                      value: access_token?.addBearerPrefix,
+                      value: addBearerPrefix(access_token),
                     });
-                    navigation.navigate('OnboardingNavigator');
+                    if (navigation.canGoBack()) {
+                      navigation.popToTop();
+                    }
+                    navigation.replace('OnboardingNavigator');
                   }
                 } catch (err) {
                   console.error(err);

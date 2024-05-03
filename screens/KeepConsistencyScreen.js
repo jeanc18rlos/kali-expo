@@ -1,19 +1,14 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import NavPillsBlock from '../components/NavPillsBlock';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import {
-  Button,
-  HStack,
-  ScreenContainer,
-  VStack,
-  withTheme,
-} from '@draftbit/ui';
+import { Button, Link, ScreenContainer, VStack, withTheme } from '@draftbit/ui';
 import { Text, View } from 'react-native';
 
 const KeepConsistencyScreen = props => {
-  const { theme } = props;
+  const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
 
   return (
@@ -39,6 +34,7 @@ const KeepConsistencyScreen = props => {
           dimensions.width
         )}
       >
+        {/* Header */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
@@ -46,24 +42,31 @@ const KeepConsistencyScreen = props => {
             dimensions.width
           )}
         >
-          {/* Text 2 */}
-          <Text
+          <Link
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            onPress={() => {
+              try {
+                if (navigation.canGoBack()) {
+                  navigation.popToTop();
+                }
+                navigation.replace('AppTabNavigator', { screen: 'HomeScreen' });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            {...GlobalStyles.LinkStyles(theme)['Link'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
                 alignSelf: 'flex-end',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_500Medium',
-                marginBottom: 28,
+                color: theme.colors['Typography Color'],
+                fontFamily: 'Raleway_400Regular',
                 textDecorationLine: 'underline',
               }),
               dimensions.width
             )}
-          >
-            {'SKIP'}
-          </Text>
-
+            title={'SKIP'}
+          />
+          {/* screen title */}
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['Text'].props}
@@ -81,7 +84,7 @@ const KeepConsistencyScreen = props => {
             {'Consistency is key!'}
           </Text>
         </VStack>
-
+        {/* Footer */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
@@ -96,6 +99,7 @@ const KeepConsistencyScreen = props => {
             dimensions.width
           )}
         >
+          {/* screen subtitle */}
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['Text'].props}
@@ -114,58 +118,18 @@ const KeepConsistencyScreen = props => {
           >
             {'Check in on Kali daily to unlock additional\nrewards.'}
           </Text>
-
-          <HStack
-            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                { height: 16, marginBottom: 16, marginTop: 16 }
-              ),
-              dimensions.width
-            )}
-          >
-            {/* View 2 */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  backgroundColor: 'rgb(171, 171, 171)',
-                  borderRadius: 3,
-                  height: 5,
-                  marginRight: 4,
-                  width: 8,
-                },
-                dimensions.width
-              )}
-            />
-            {/* View 3 */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  backgroundColor: 'rgb(171, 171, 171)',
-                  borderRadius: 3,
-                  height: 5,
-                  marginRight: 4,
-                  width: 8,
-                },
-                dimensions.width
-              )}
-            />
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  backgroundColor: theme.colors['Typography Color'],
-                  borderRadius: 5,
-                  height: 5,
-                  marginRight: 4,
-                  width: 22,
-                },
-                dimensions.width
-              )}
-            />
-          </HStack>
-          {/* Button 2 */}
+          <NavPillsBlock pillsCount={3} selectedPillIndex={2} />
+          {/* Next Screen action */}
           <Button
+            onPress={() => {
+              try {
+                navigation.push('OnboardingNavigator', {
+                  screen: 'SetDailyGoalScreen',
+                });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
             {...GlobalStyles.ButtonStyles(theme)['Button'].props}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(

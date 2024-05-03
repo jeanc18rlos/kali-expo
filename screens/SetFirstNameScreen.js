@@ -1,11 +1,14 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as BackendApi from '../apis/BackendApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   KeyboardAvoidingView,
+  Link,
   ScreenContainer,
   TextInput,
   VStack,
@@ -16,7 +19,10 @@ import { Text, View } from 'react-native';
 const SetFirstNameScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
   const [textInputValue, setTextInputValue] = React.useState('');
+  const backendUpdateUserProfilePATCH = BackendApi.useUpdateUserProfilePATCH();
 
   return (
     <ScreenContainer
@@ -30,6 +36,7 @@ const SetFirstNameScreen = props => {
           dimensions.width
         )}
       >
+        {/* Header */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
@@ -40,23 +47,30 @@ const SetFirstNameScreen = props => {
             dimensions.width
           )}
         >
-          {/* Text 2 */}
-          <Text
+          <Link
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            onPress={() => {
+              try {
+                if (navigation.canGoBack()) {
+                  navigation.popToTop();
+                }
+                navigation.replace('AppTabNavigator', { screen: 'HomeScreen' });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            {...GlobalStyles.LinkStyles(theme)['Link'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
                 alignSelf: 'flex-end',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_500Medium',
-                marginBottom: 28,
+                color: theme.colors['Typography Color'],
+                fontFamily: 'Raleway_400Regular',
                 textDecorationLine: 'underline',
               }),
               dimensions.width
             )}
-          >
-            {'SKIP'}
-          </Text>
+            title={'SKIP'}
+          />
         </VStack>
         {/* Content Avoiding View */}
         <KeyboardAvoidingView
@@ -117,14 +131,14 @@ const SetFirstNameScreen = props => {
             >
               {'Sign in or sign up with your email'}
             </Text>
-            {/* Email Field */}
+            {/* Name Field */}
             <TextInput
               autoCapitalize={'none'}
               autoCorrect={true}
               changeTextDelay={500}
-              onChangeText={newEmailFieldValue => {
+              onChangeText={newNameFieldValue => {
                 try {
-                  setTextInputValue(newEmailFieldValue);
+                  setTextInputValue(newNameFieldValue);
                 } catch (err) {
                   console.error(err);
                 }
@@ -182,13 +196,21 @@ const SetFirstNameScreen = props => {
                 }
               }}
               onPress={() => {
-                try {
-                  navigation.navigate('AuthNavigator', {
-                    screen: 'SignUpScreen',
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
+                const handler = async () => {
+                  try {
+                    (
+                      await backendUpdateUserProfilePATCH.mutateAsync({
+                        first_name: textInputValue,
+                      })
+                    )?.json;
+                    navigation.navigate('OnboardingNavigator', {
+                      screen: 'AllowNotificationsScreen',
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                };
+                handler();
               }}
               {...GlobalStyles.ButtonStyles(theme)['Button'].props}
               style={StyleSheet.applyWidth(

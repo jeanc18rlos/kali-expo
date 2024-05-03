@@ -2,6 +2,7 @@ import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as BackendApi from '../apis/BackendApi.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
+import * as CustomCode from '../custom-files/CustomCode';
 import mergeState from '../global-functions/mergeState';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
@@ -271,24 +272,21 @@ const ContinueWithEmailScreen = props => {
             onPress={() => {
               const handler = async () => {
                 try {
-                  const searchedEmail = (
+                  const existsemail = (
                     await backend$v1$checkEmailPOST.mutateAsync({
                       email: emailFieldValue,
                     })
                   )?.json;
-                  if (searchedEmail) {
-                    if (searchedEmail?.exists) {
-                      navigation.push('AuthNavigator', {
-                        screen: 'SignInScreen',
-                        params: { email: searchedEmail },
-                      });
-                    } else {
-                      navigation.push('AuthNavigator', {
-                        screen: 'SignUpScreen',
-                        params: { email: searchedEmail },
-                      });
-                    }
+                  if (existsemail?.exists) {
+                    navigation.navigate('AuthNavigator', {
+                      screen: 'SignInScreen',
+                      params: { email: emailFieldValue },
+                    });
                   } else {
+                    navigation.push('AuthNavigator', {
+                      screen: 'SignUpScreen',
+                      params: { email: emailFieldValue },
+                    });
                   }
                 } catch (err) {
                   console.error(err);

@@ -1,11 +1,15 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as BackendApi from '../apis/BackendApi.js';
+import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
+import getPushTokenUtil from '../utils/getPushToken';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
   KeyboardAvoidingView,
+  Link,
   ScreenContainer,
   VStack,
   withTheme,
@@ -15,16 +19,26 @@ import { Text, View } from 'react-native';
 const AllowNotificationsScreen = props => {
   const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
+  const Constants = GlobalVariables.useValues();
+  const Variables = Constants;
+  const setGlobalVariableValue = GlobalVariables.useSetValue();
   const [textInputValue, setTextInputValue] = React.useState('');
+  const backendUpdateSettingsNotPATCH = BackendApi.useUpdateSettingsNotPATCH();
 
   return (
-    <ScreenContainer hasSafeArea={false} scrollable={false}>
+    <ScreenContainer
+      scrollable={false}
+      hasBottomSafeArea={true}
+      hasSafeArea={true}
+      hasTopSafeArea={true}
+    >
       <View
         style={StyleSheet.applyWidth(
           { flex: 1, justifyContent: 'space-between' },
           dimensions.width
         )}
       >
+        {/* Header */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
@@ -35,23 +49,30 @@ const AllowNotificationsScreen = props => {
             dimensions.width
           )}
         >
-          {/* Text 2 */}
-          <Text
+          <Link
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            onPress={() => {
+              try {
+                if (navigation.canGoBack()) {
+                  navigation.popToTop();
+                }
+                navigation.replace('AppTabNavigator', { screen: 'HomeScreen' });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            {...GlobalStyles.LinkStyles(theme)['Link'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
                 alignSelf: 'flex-end',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_500Medium',
-                marginBottom: 28,
+                color: theme.colors['Typography Color'],
+                fontFamily: 'Raleway_400Regular',
                 textDecorationLine: 'underline',
               }),
               dimensions.width
             )}
-          >
-            {'SKIP'}
-          </Text>
+            title={'SKIP'}
+          />
         </VStack>
         {/* Content Avoiding View */}
         <KeyboardAvoidingView
@@ -94,8 +115,9 @@ const AllowNotificationsScreen = props => {
                 dimensions.width
               )}
             >
+              {textInputValue}
               {
-                'Greg! would you like to receive push notifications so \nI can help you progress?'
+                '! Would you like to receive push notifications so \nI can help you progress?'
               }
             </Text>
           </View>
@@ -125,13 +147,30 @@ const AllowNotificationsScreen = props => {
                 }
               }}
               onPress={() => {
-                try {
-                  navigation.navigate('AuthNavigator', {
-                    screen: 'SignUpScreen',
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
+                const handler = async () => {
+                  try {
+                    const response = await getPushTokenUtil({
+                      permissionErrorMessage:
+                        'Sorry, we need notifications permissions to make this work.',
+                      deviceErrorMessage:
+                        'Must use physical device for Push Notifications.',
+                      showAlertOnPermissionError: true,
+                      showAlertOnDeviceError: true,
+                    });
+
+                    setGlobalVariableValue({
+                      key: 'pushToken',
+                      value: response,
+                    });
+                    (await backendUpdateSettingsNotPATCH.mutateAsync())?.json;
+                    navigation.push('OnboardingNavigator', {
+                      screen: 'ConnectStepTrackerScreen',
+                    });
+                  } catch (err) {
+                    console.error(err);
+                  }
+                };
+                handler();
               }}
               {...GlobalStyles.ButtonStyles(theme)['Button'].props}
               style={StyleSheet.applyWidth(
@@ -166,8 +205,8 @@ const AllowNotificationsScreen = props => {
               }}
               onPress={() => {
                 try {
-                  navigation.navigate('AuthNavigator', {
-                    screen: 'SignUpScreen',
+                  navigation.push('OnboardingNavigator', {
+                    screen: 'ConnectStepTrackerScreen',
                   });
                 } catch (err) {
                   console.error(err);

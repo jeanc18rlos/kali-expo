@@ -3,11 +3,11 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { Button, ScreenContainer, VStack, withTheme } from '@draftbit/ui';
+import { Button, Link, ScreenContainer, VStack, withTheme } from '@draftbit/ui';
 import { Text, View } from 'react-native';
 
 const ConnectStepTrackerScreen = props => {
-  const { theme } = props;
+  const { theme, navigation } = props;
   const dimensions = useWindowDimensions();
 
   return (
@@ -43,24 +43,30 @@ const ConnectStepTrackerScreen = props => {
             dimensions.width
           )}
         >
-          {/* Text 2 */}
-          <Text
+          <Link
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            onPress={() => {
+              try {
+                if (navigation.canGoBack()) {
+                  navigation.popToTop();
+                }
+                navigation.replace('AppTabNavigator', { screen: 'HomeScreen' });
+              } catch (err) {
+                console.error(err);
+              }
+            }}
+            {...GlobalStyles.LinkStyles(theme)['Link'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
                 alignSelf: 'flex-end',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_500Medium',
-                marginBottom: 28,
+                color: theme.colors['Typography Color'],
+                fontFamily: 'Raleway_400Regular',
                 textDecorationLine: 'underline',
               }),
               dimensions.width
             )}
-          >
-            {'SKIP'}
-          </Text>
-
+            title={'SKIP'}
+          />
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['Text'].props}
@@ -70,6 +76,7 @@ const ConnectStepTrackerScreen = props => {
                 color: theme.colors['Typography Color'],
                 fontFamily: 'Raleway_700Bold',
                 fontSize: 24,
+                marginTop: 16,
                 textAlign: 'left',
               }),
               dimensions.width

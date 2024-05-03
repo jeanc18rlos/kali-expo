@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CustomCode from '../custom-files/CustomCode';
 import * as KaliIcon from '../custom-files/KaliIcon';
 import * as Utils from '../utils';
 import Breakpoints from '../utils/Breakpoints';
@@ -134,8 +135,8 @@ const WelcomeScreen = props => {
           <Button
             onPress={() => {
               try {
-                navigation.navigate('AuthNavigator', {
-                  screen: 'AuthenticateScreen',
+                navigation.navigate('OnboardingNavigator', {
+                  screen: 'ConnectStepTrackerScreen',
                 });
               } catch (err) {
                 console.error(err);

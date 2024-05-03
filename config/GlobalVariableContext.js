@@ -4,18 +4,23 @@ import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DeviceVariables = {
-  AUTHORIZATION_HEADER: '',
+  AUTHORIZATION_HEADER:
+    'Bearer eyJhbGciOiJIUzI1NiIsImtpZCI6ImUyVFB6MmtSR1VJcTU1WXMiLCJ0eXAiOiJKV1QifQ.eyJhdWQiOiJhdXRoZW50aWNhdGVkIiwiZXhwIjoxNzE0NDE3MTg4LCJpYXQiOjE3MTQ0MTM1ODgsImlzcyI6Imh0dHBzOi8vbXFhb3VuYW1qZXlzd2FwaGhkd3Euc3VwYWJhc2UuY28vYXV0aC92MSIsInN1YiI6IjRkY2FlYTgwLWU0OGUtNGMwNy1hMzUyLTUxNjdiNDFkMDI0YyIsImVtYWlsIjoiYmFzc3Nzc3Nzc2RkZHNkZHNyYmFyYUBnbWFpbC5jb20iLCJwaG9uZSI6IiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIiwicHJvdmlkZXJzIjpbImVtYWlsIl19LCJ1c2VyX21ldGFkYXRhIjp7ImVtYWlsIjoiYmFzc3Nzc3Nzc2RkZHNkZHNyYmFyYUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiNGRjYWVhODAtZTQ4ZS00YzA3LWEzNTItNTE2N2I0MWQwMjRjIn0sInJvbGUiOiJhdXRoZW50aWNhdGVkIiwiYWFsIjoiYWFsMSIsImFtciI6W3sibWV0aG9kIjoicGFzc3dvcmQiLCJ0aW1lc3RhbXAiOjE3MTQ0MTM1ODh9XSwic2Vzc2lvbl9pZCI6IjQ3ODVkNGJmLWM2MzktNGQwZC04MmZhLWY0MDcxMGRiNjAwNSIsImlzX2Fub255bW91cyI6ZmFsc2V9.pjsb0mMViGZI3DqyHobjsfSHmcM4eYDj22SsFuSrIlE',
+  pushToken: '',
   STRIPE_PUBLISHABLE_KEY:
     'pk_test_51LxYOPBKrk3FAhWNuhXIPgW68QOuNR8gCBeHfPrAvIzGpuuXyR7Y5HfmzLL5TYHwQLoByXek7ljJRGSXlfxstp9W00KViIwwqq',
+  timeZone: "'UTC'",
   __env__: 'Development',
 };
 export const AppVariables = {
+  apikey:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoenZzZ2ZnZWVuaXJicWpvbnJrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcxNDQ5OTMyNCwiZXhwIjoyMDMwMDc1MzI0fQ.bOwh07dGA1ZxV0vWj50Oqnzr9BtFlOiaaL56yvnriE4',
   API_KEY_HEADER:
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1xYW91bmFtamV5c3dhcGhoZHdxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTMxMTE3MDgsImV4cCI6MjAyODY4NzcwOH0.m7YIAadlQp6_wj9ZOX0sBzBO-Qi_DRWkJhllk1pvFBg',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFoenZzZ2ZnZWVuaXJicWpvbnJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQ0OTkzMjQsImV4cCI6MjAzMDA3NTMyNH0.ygBTZCbSil5mddamE3WWA1CQIs2qGaaVcC6Ex35WBjM',
   ERROR_MESSAGE: '',
   isStepTrackerAvailable: 'checking',
   todayStepsCount: 0,
-  yesterdayStepsCount: 0,
+  user_profile: { data: {}, error: null, isFetching: false },
 };
 const GlobalVariableContext = React.createContext();
 const GlobalVariableUpdater = React.createContext();

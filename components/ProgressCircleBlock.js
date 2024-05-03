@@ -1,5 +1,6 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import * as CustomCode from '../custom-files/CustomCode';
 import * as ProgressBarSVG from '../custom-files/ProgressBarSVG';
 import substractMargins from '../global-functions/substractMargins';
 import * as Utils from '../utils';
