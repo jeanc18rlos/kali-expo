@@ -5,14 +5,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import {
-  Button,
-  Link,
-  NumberInput,
-  ScreenContainer,
-  VStack,
-  withTheme,
-} from '@draftbit/ui';
+import { Button, Link, ScreenContainer, VStack, withTheme } from '@draftbit/ui';
 import { Text, View } from 'react-native';
 
 const SetDailyGoalScreen = props => {
@@ -56,6 +49,7 @@ const SetDailyGoalScreen = props => {
             dimensions.width
           )}
         >
+          {/* SKIP */}
           <Link
             accessible={true}
             onPress={() => {
@@ -68,86 +62,43 @@ const SetDailyGoalScreen = props => {
                 console.error(err);
               }
             }}
-            {...GlobalStyles.LinkStyles(theme)['Link'].props}
+            {...GlobalStyles.LinkStyles(theme)['SKIP'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
-                alignSelf: 'flex-end',
-                color: theme.colors['Typography Color'],
-                fontFamily: 'Raleway_400Regular',
-                textDecorationLine: 'underline',
-              }),
+              GlobalStyles.LinkStyles(theme)['SKIP'].style,
               dimensions.width
             )}
             title={'SKIP'}
           />
-          {/* Text 3 */}
+          {/* Title */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['HEADING-2'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'center',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_600SemiBold',
-                fontSize: 64,
-                margin: 20,
-              }),
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['HEADING-2'].style,
+                { marginBottom: 24 }
+              ),
+              dimensions.width
+            )}
+          >
+            {'Set your daily\nstep goal'}
+          </Text>
+
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['HEADING-1'].props}
+            style={StyleSheet.applyWidth(
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['HEADING-1'].style,
+                { fontSize: 64 }
+              ),
               dimensions.width
             )}
           >
             {'1000'}
           </Text>
-
-          <Text
-            accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'center',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_600SemiBold',
-                fontSize: 24,
-                textAlign: 'center',
-              }),
-              dimensions.width
-            )}
-          >
-            {'Set your daily\nsteps goal'}
-          </Text>
         </VStack>
-
-        <View
-          style={StyleSheet.applyWidth({ borderRadius: 31 }, dimensions.width)}
-        >
-          <NumberInput
-            changeTextDelay={500}
-            onChangeText={newNumberInputValue => {
-              const numberInputValue = newNumberInputValue;
-              try {
-                setNumberInputValue2(newNumberInputValue);
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            placeholder={'Enter a number...'}
-            webShowOutline={true}
-            {...GlobalStyles.NumberInputStyles(theme)['Number Input'].props}
-            style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.NumberInputStyles(theme)['Number Input'].style,
-                {
-                  borderColor: 'rgb(93, 93, 93)',
-                  borderRadius: 31,
-                  color: 'rgb(148, 148, 148)',
-                  fontFamily: 'Raleway_400Regular',
-                }
-              ),
-              dimensions.width
-            )}
-            value={numberInputValue2}
-          />
-        </View>
-
+        {/* Container */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
@@ -162,25 +113,21 @@ const SetDailyGoalScreen = props => {
             dimensions.width
           )}
         >
+          {/* Subtitle */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['SUBTITLE'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'stretch',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_500Medium',
-                fontSize: 16,
-                lineHeight: 19,
-                marginBottom: 16,
-                textAlign: 'center',
-              }),
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['SUBTITLE'].style,
+                { marginBottom: 16 }
+              ),
               dimensions.width
             )}
           >
             {'Set your daily steps goal to earn more Kali \nPoints\n'}
           </Text>
-          {/* Button 2 */}
+          {/* Set Up Button */}
           <Button
             onPress={() => {
               const handler = async () => {
@@ -195,18 +142,9 @@ const SetDailyGoalScreen = props => {
               };
               handler();
             }}
-            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.ButtonStyles(theme)['Button'].style,
-                {
-                  backgroundColor: 'rgb(38, 38, 38)',
-                  borderRadius: 31,
-                  fontFamily: 'Rubik_600SemiBold',
-                  padding: 20,
-                  width: '100%',
-                }
-              ),
+              GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
               dimensions.width
             )}
             title={'Set up goal'}

@@ -44,6 +44,7 @@ const RedeemPointsScreen = props => {
             dimensions.width
           )}
         >
+          {/* SKIP */}
           <Link
             accessible={true}
             onPress={() => {
@@ -56,30 +57,19 @@ const RedeemPointsScreen = props => {
                 console.error(err);
               }
             }}
-            {...GlobalStyles.LinkStyles(theme)['Link'].props}
+            {...GlobalStyles.LinkStyles(theme)['SKIP'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
-                alignSelf: 'flex-end',
-                color: theme.colors['Typography Color'],
-                fontFamily: 'Raleway_400Regular',
-                textDecorationLine: 'underline',
-              }),
+              GlobalStyles.LinkStyles(theme)['SKIP'].style,
               dimensions.width
             )}
             title={'SKIP'}
           />
-          {/* screen title */}
+          {/* Title */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['HEADING-2'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'center',
-                color: theme.colors['Typography Color'],
-                fontFamily: 'Raleway_700Bold',
-                fontSize: 24,
-                textAlign: 'center',
-              }),
+              GlobalStyles.TextStyles(theme)['HEADING-2'].style,
               dimensions.width
             )}
           >
@@ -101,37 +91,26 @@ const RedeemPointsScreen = props => {
             dimensions.width
           )}
         >
-          {/* screen subtitle */}
+          {/* Subtitle */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['SUBTITLE'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'stretch',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_500Medium',
-                fontSize: 16,
-                lineHeight: 19,
-                marginBottom: 8,
-                textAlign: 'center',
-              }),
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['SUBTITLE'].style,
+                { marginBottom: 8 }
+              ),
               dimensions.width
             )}
           >
             {'Use your earned points in the marketplace'}
           </Text>
-          {/* screen description */}
+          {/* Description */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['BODY'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'stretch',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_300Light',
-                fontSize: 16,
-                textAlign: 'center',
-              }),
+              GlobalStyles.TextStyles(theme)['BODY'].style,
               dimensions.width
             )}
           >
@@ -140,7 +119,7 @@ const RedeemPointsScreen = props => {
             }
           </Text>
           <NavPillsBlock pillsCount={3} selectedPillIndex={1} />
-          {/* Next Screen action */}
+          {/* Next Button */}
           <Button
             onPress={() => {
               try {
@@ -151,18 +130,9 @@ const RedeemPointsScreen = props => {
                 console.error(err);
               }
             }}
-            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.ButtonStyles(theme)['Button'].style,
-                {
-                  backgroundColor: 'rgb(38, 38, 38)',
-                  borderRadius: 31,
-                  fontFamily: 'Rubik_600SemiBold',
-                  padding: 20,
-                  width: '100%',
-                }
-              ),
+              GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
               dimensions.width
             )}
             title={'Next'}

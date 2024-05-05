@@ -60,6 +60,7 @@ const HomeScreen = props => {
           dimensions.width
         )}
       />
+      {/* Container */}
       <HStack
         {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
         style={StyleSheet.applyWidth(
@@ -78,6 +79,7 @@ const HomeScreen = props => {
         showsHorizontalScrollIndicator={true}
         showsVerticalScrollIndicator={true}
       >
+        {/* Container */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(

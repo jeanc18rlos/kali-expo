@@ -1,15 +1,13 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
-import * as BackendApi from '../apis/BackendApi.js';
+import KActionHeaderBlock from '../components/KActionHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import * as CustomCode from '../custom-files/CustomCode';
-import mergeState from '../global-functions/mergeState';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
-  IconButton,
   KeyboardAvoidingView,
   ScreenContainer,
   SimpleStyleFlatList,
@@ -41,7 +39,6 @@ const ContinueWithEmailScreen = props => {
 
     return errors;
   };
-  const backend$v1$checkEmailPOST = BackendApi.use$v1$checkEmailPOST();
 
   return (
     <ScreenContainer
@@ -50,6 +47,12 @@ const ContinueWithEmailScreen = props => {
       hasTopSafeArea={true}
       scrollable={true}
     >
+      <KActionHeaderBlock
+        left_button={true}
+        left_icon={'chevron-left'}
+        right_button={true}
+        right_icon={'close'}
+      />
       {/* Content Avoiding View */}
       <KeyboardAvoidingView
         behavior={'padding'}
@@ -60,72 +63,14 @@ const ContinueWithEmailScreen = props => {
           dimensions.width
         )}
       >
-        {/* Header Wrapper */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 16,
-            },
-            dimensions.width
-          )}
-        >
-          {/* Go back Wrapper */}
-          <View>
-            {/* Go back Button */}
-            <IconButton
-              onPress={() => {
-                try {
-                  navigation.goBack();
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              color={theme.colors['Custom Color_2']}
-              icon={'AntDesign/left'}
-              size={24}
-            />
-          </View>
-          {/* Close Wrapper */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'center',
-                backgroundColor: theme.colors['Custom Color_4'],
-                borderRadius: 22,
-                height: 32,
-                justifyContent: 'center',
-                width: 32,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Close Button */}
-            <IconButton
-              onPress={() => {
-                try {
-                  navigation.navigate('AuthNavigator', {
-                    screen: 'WelcomeScreen',
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              color={theme.colors['Custom Color_3']}
-              icon={'AntDesign/close'}
-              size={24}
-            />
-          </View>
-        </View>
         {/* Form */}
         <View
           style={StyleSheet.applyWidth(
             {
-              alignItems: 'flex-start',
+              alignItems: 'stretch',
               alignSelf: 'auto',
               flexGrow: 1,
+              gap: 16,
               justifyContent: 'flex-end',
               marginLeft: 18,
               marginRight: 18,
@@ -134,86 +79,54 @@ const ContinueWithEmailScreen = props => {
             dimensions.width
           )}
         >
-          {/* Screen Title */}
+          {/* Title */}
           <Text
             accessible={true}
+            {...GlobalStyles.TextStyles(theme)['HEADING-2'].props}
             style={StyleSheet.applyWidth(
-              {
-                color: theme.colors.strong,
-                fontFamily: 'Raleway_700Bold',
-                fontSize: 24,
-                marginBottom: 16,
-                textAlign: 'center',
-                typography: theme.typography.headline4,
-              },
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['HEADING-2'].style,
+                { alignSelf: 'flex-start' }
+              ),
               dimensions.width
             )}
           >
             {'Continue with Email'}
           </Text>
-          {/* Screen Description */}
+          {/* Description */}
           <Text
             accessible={true}
+            {...GlobalStyles.TextStyles(theme)['BODY'].props}
             style={StyleSheet.applyWidth(
-              {
-                color: theme.colors.medium,
-                fontFamily: 'Raleway_300Light',
-                fontSize: 16,
-                marginBottom: 16,
-                textAlign: 'center',
-                typography: theme.typography.body1,
-              },
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['BODY'].style, {
+                alignSelf: 'flex-start',
+              }),
               dimensions.width
             )}
           >
-            {'Sign in or sign up with your email'}
+            {'Sign in or sign up with your email.'}
           </Text>
-          {/* Email Field */}
+          {/* Email input */}
           <TextInput
             autoCapitalize={'none'}
             autoCorrect={true}
             changeTextDelay={500}
-            onChangeText={newEmailFieldValue => {
+            onChangeText={newEmailInputValue => {
+              const textInputValue = newEmailInputValue;
               try {
-                const valueoZHyPKv2 = newEmailFieldValue;
-                setEmailFieldValue(valueoZHyPKv2);
-                const savedEmail = valueoZHyPKv2;
-                const emailValidationResult = validateEmail(savedEmail);
-                const mergedState = mergeState(
-                  errors,
-                  'email',
-                  emailValidationResult
-                );
-                setErrors(mergedState);
+                setTextInputValue(newEmailInputValue);
               } catch (err) {
                 console.error(err);
               }
             }}
             webShowOutline={true}
+            {...GlobalStyles.TextInputStyles(theme)['email-input'].props}
             placeholder={'Email'}
-            placeholderTextColor={theme.colors['Light']}
             style={StyleSheet.applyWidth(
-              {
-                borderBottomWidth: 1,
-                borderColor: theme.colors['Custom Color'],
-                borderLeftWidth: 1,
-                borderRadius: 16,
-                borderRightWidth: 1,
-                borderTopWidth: 1,
-                borderWidth: 1,
-                color: theme.colors['Input Color'],
-                fontFamily: 'Raleway_500Medium',
-                height: 56,
-                marginBottom: 16,
-                paddingBottom: 0,
-                paddingLeft: 16,
-                paddingRight: 16,
-                paddingTop: 0,
-                width: '100%',
-              },
+              GlobalStyles.TextInputStyles(theme)['email-input'].style,
               dimensions.width
             )}
-            value={emailFieldValue}
+            value={textInputValue}
           />
           <SimpleStyleFlatList
             data={errors?.email}
@@ -267,45 +180,25 @@ const ContinueWithEmailScreen = props => {
             dimensions.width
           )}
         >
-          {/* Screen nav link */}
+          {/* Next Button */}
           <Button
             onPress={() => {
-              const handler = async () => {
-                try {
-                  const existsemail = (
-                    await backend$v1$checkEmailPOST.mutateAsync({
-                      email: emailFieldValue,
-                    })
-                  )?.json;
-                  if (existsemail?.exists) {
-                    navigation.navigate('AuthNavigator', {
-                      screen: 'SignInScreen',
-                      params: { email: emailFieldValue },
-                    });
-                  } else {
-                    navigation.push('AuthNavigator', {
-                      screen: 'SignUpScreen',
-                      params: { email: emailFieldValue },
-                    });
-                  }
-                } catch (err) {
-                  console.error(err);
-                }
-              };
-              handler();
+              try {
+                navigation.navigate('OnboardingNavigator', {
+                  screen: 'ConnectStepTrackerScreen',
+                });
+              } catch (err) {
+                console.error(err);
+              }
             }}
-            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-            disabled={!emailFieldValue || errors?.email?.length > 0}
+            {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
-                GlobalStyles.ButtonStyles(theme)['Button'].style,
+                GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
                 {
                   backgroundColor: theme.colors['Accent Color'],
                   borderColor: 'rgb(255, 255, 255)',
                   borderRadius: 59,
-                  color: 'rgb(255, 255, 255)',
-                  fontFamily: 'Raleway_600SemiBold',
-                  fontSize: 16,
                   height: 64,
                   marginTop: 24,
                   padding: 16,

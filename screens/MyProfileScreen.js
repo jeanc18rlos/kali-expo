@@ -1,8 +1,10 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import KActionHeaderBlock from '../components/KActionHeaderBlock';
+import KPressableProfileBlock from '../components/KPressableProfileBlock';
+import UpgradeBarBlock from '../components/UpgradeBarBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import * as CustomCode from '../custom-files/CustomCode';
-import * as KIcon from '../custom-files/KIcon';
 import * as KaliCoinSVG from '../custom-files/KaliCoinSVG';
 import * as Utils from '../utils';
 import Breakpoints from '../utils/Breakpoints';
@@ -11,9 +13,7 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   BottomSheet,
   HStack,
-  Icon,
   IconButton,
-  LinearGradient,
   Pressable,
   ScreenContainer,
   SimpleStyleScrollView,
@@ -40,86 +40,14 @@ const MyProfileScreen = props => {
       hasSafeArea={true}
       hasTopSafeArea={true}
     >
-      {/* Header Wrapper */}
-      <View
-        style={StyleSheet.applyWidth(
-          {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: 16,
-          },
-          dimensions.width
-        )}
-      >
-        {/* Go back Wrapper */}
-        <View>
-          {/* Go back Button */}
-          <IconButton
-            onPress={() => {
-              try {
-                navigation.goBack();
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            color={theme.colors['Custom Color_2']}
-            icon={'AntDesign/left'}
-            size={24}
-          />
-        </View>
-
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['Text'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-              alignSelf: 'center',
-              color: 'rgb(32, 32, 32)',
-              fontFamily: 'Raleway_600SemiBold',
-              fontSize: 16,
-              lineHeight: 24,
-            }),
-            dimensions.width
-          )}
-        >
-          {'PROFILE '}
-        </Text>
-        {/* Close Wrapper */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              alignSelf: 'center',
-              backgroundColor: theme.colors['Custom Color_4'],
-              borderRadius: 22,
-              height: 32,
-              justifyContent: 'center',
-              width: 32,
-            },
-            dimensions.width
-          )}
-        >
-          {/* Edit Button */}
-          <IconButton
-            onPress={() => {
-              try {
-                navigation.navigate('AppTabNavigator', {
-                  screen: 'ProfileNavigator',
-                  params: { screen: 'EditProfileScreen' },
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            color={'#202020'}
-            icon={'MaterialCommunityIcons/pencil-outline'}
-            size={24}
-            style={StyleSheet.applyWidth({ opacity: 0.96 }, dimensions.width)}
-          />
-        </View>
-      </View>
-      {/* View 2 */}
+      <KActionHeaderBlock
+        left_button={true}
+        right_button={true}
+        title={'PROFILE'}
+      />
+      {/* Container */}
       <View>
+        {/* User  */}
         <View
           style={StyleSheet.applyWidth(
             {
@@ -166,41 +94,24 @@ const MyProfileScreen = props => {
               dimensions.width
             )}
           >
+            {/* H6 */}
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['HEADING-6'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    color: 'rgb(32, 32, 32)',
-                    fontFamily: 'Raleway_700Bold',
-                    fontSize: 16,
-                    letterSpacing: 0.08,
-                    lineHeight: 24,
-                  }
-                ),
+                GlobalStyles.TextStyles(theme)['HEADING-6'].style,
                 dimensions.width
               )}
             >
               {'Hi, '}
               {null}
             </Text>
-            {/* Text 3 */}
+            {/* Subtitle */}
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['SUBTITLE'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    color: 'rgb(32, 32, 32)',
-                    fontFamily: 'Raleway_700Bold',
-                    fontSize: 16,
-                    letterSpacing: 0.08,
-                    lineHeight: 24,
-                  }
-                ),
+                GlobalStyles.TextStyles(theme)['SUBTITLE'].style,
                 dimensions.width
               )}
             >
@@ -208,89 +119,14 @@ const MyProfileScreen = props => {
               {textInputValue}
               {'!'}
             </Text>
-
-            <Pressable
-              style={StyleSheet.applyWidth({ width: '100%' }, dimensions.width)}
-            >
-              <LinearGradient
-                {...GlobalStyles.LinearGradientStyles(theme)['Linear Gradient']
-                  .props}
-                color1={theme.colors['Custom Color_28']}
-                color2={theme.colors['Custom Color_29']}
-                color3={theme.colors['Custom Color_30']}
-                endX={10}
-                endY={100}
-                startX={100}
-                startY={100}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.LinearGradientStyles(theme)['Linear Gradient']
-                      .style,
-                    {
-                      borderRadius: 18,
-                      height: '100%',
-                      position: 'absolute',
-                      width: '100%',
-                    }
-                  ),
-                  dimensions.width
-                )}
-              />
-              <HStack
-                {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                    { gap: 8, justifyContent: 'space-between', padding: 12 }
-                  ),
-                  dimensions.width
-                )}
-              >
-                <HStack
-                  {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.HStackStyles(theme)['H Stack'].style,
-                      { gap: 8 }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  <Utils.CustomCodeErrorBoundary>
-                    <KIcon.Icon />
-                  </Utils.CustomCodeErrorBoundary>
-                  <Text
-                    accessible={true}
-                    {...GlobalStyles.TextStyles(theme)['Text'].props}
-                    style={StyleSheet.applyWidth(
-                      StyleSheet.compose(
-                        GlobalStyles.TextStyles(theme)['Text'].style,
-                        {
-                          color: 'rgb(255, 252, 252)',
-                          fontFamily: 'Raleway_700Bold',
-                        }
-                      ),
-                      dimensions.width
-                    )}
-                  >
-                    {'UPGRADE'}
-                  </Text>
-                </HStack>
-                <Icon
-                  size={24}
-                  color={theme.colors['Background']}
-                  name={'MaterialCommunityIcons/crown'}
-                />
-              </HStack>
-            </Pressable>
+            <UpgradeBarBlock />
           </View>
         </View>
-
+        {/* Steps & Points */}
         <View
           style={StyleSheet.applyWidth(
             {
               alignItems: 'flex-start',
-              borderBottomWidth: 1,
               borderColor: theme.colors['Custom Color_31'],
               borderTopWidth: 1,
               flexDirection: 'row',
@@ -304,6 +140,7 @@ const MyProfileScreen = props => {
             dimensions.width
           )}
         >
+          {/* Today Steps */}
           <View
             style={StyleSheet.applyWidth(
               {
@@ -356,7 +193,7 @@ const MyProfileScreen = props => {
               {'TODAY STEPS'}
             </Text>
           </View>
-          {/* View 2 */}
+          {/* Kali Points */}
           <View
             style={StyleSheet.applyWidth(
               { flex: 100, gap: 4, paddingLeft: 16 },
@@ -430,470 +267,16 @@ const MyProfileScreen = props => {
           dimensions.width
         )}
       >
-        <Pressable
-          onPress={() => {
-            try {
-              navigation.push('AppTabNavigator', {
-                screen: 'ProfileNavigator',
-                params: { screen: 'MyProfileScreen' },
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          {/* My Orders */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'stretch',
-                borderColor: 'rgb(229, 231, 235)',
-                flexDirection: 'row',
-                gap: 16,
-                padding: 8,
-                paddingBottom: 16,
-                paddingTop: 16,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Close Wrapper */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  backgroundColor: theme.colors['Custom Color_4'],
-                  borderRadius: 22,
-                  height: 32,
-                  justifyContent: 'center',
-                  width: 32,
-                },
-                dimensions.width
-              )}
-            >
-              <Icon
-                size={24}
-                name={'MaterialCommunityIcons/shopping-outline'}
-                style={StyleSheet.applyWidth(
-                  { backgroundColor: 'rgb(249, 249, 249)' },
-                  dimensions.width
-                )}
-              />
-            </View>
-
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'flex-start', flex: 100, gap: 2 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['Text'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['Text'].style,
-                    {
-                      color: 'rgb(31, 41, 55)',
-                      fontFamily: 'Raleway_600SemiBold',
-                      fontSize: 16,
-                      lineHeight: 16,
-                    }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'My Orders'}
-              </Text>
-            </View>
-            {/* Icon 2 */}
-            <Icon size={24} name={'AntDesign/right'} />
-          </View>
-        </Pressable>
-        {/* Pressable 2 */}
-        <Pressable
-          onPress={() => {
-            try {
-              navigation.push('AppTabNavigator', {
-                screen: 'ShopNavigator',
-                params: { screen: 'FavoritesScreen' },
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          {/* Favorites */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'stretch',
-                borderColor: 'rgb(229, 231, 235)',
-                borderTopWidth: 1,
-                flexDirection: 'row',
-                gap: 16,
-                padding: 8,
-                paddingBottom: 16,
-                paddingTop: 16,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Close Wrapper */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  backgroundColor: theme.colors['Custom Color_4'],
-                  borderRadius: 22,
-                  height: 32,
-                  justifyContent: 'center',
-                  width: 32,
-                },
-                dimensions.width
-              )}
-            >
-              <Icon size={24} name={'MaterialCommunityIcons/heart-outline'} />
-            </View>
-
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'flex-start', flex: 100, gap: 2 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['Text'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['Text'].style,
-                    {
-                      color: 'rgb(31, 41, 55)',
-                      fontFamily: 'Raleway_600SemiBold',
-                      fontSize: 16,
-                      lineHeight: 16,
-                    }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'Favorites'}
-              </Text>
-            </View>
-            {/* Icon 2 */}
-            <Icon size={24} name={'AntDesign/right'} />
-          </View>
-        </Pressable>
-        {/* Pressable 3 */}
-        <Pressable
-          onPress={() => {
-            try {
-              navigation.push('AppTabNavigator', {
-                screen: 'ProfileNavigator',
-                params: { screen: 'SettingsScreen' },
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          {/* Settings */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'stretch',
-                borderColor: 'rgb(229, 231, 235)',
-                borderTopWidth: 1,
-                flexDirection: 'row',
-                gap: 16,
-                padding: 8,
-                paddingBottom: 16,
-                paddingTop: 16,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Close Wrapper */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  backgroundColor: theme.colors['Custom Color_4'],
-                  borderRadius: 22,
-                  height: 32,
-                  justifyContent: 'center',
-                  width: 32,
-                },
-                dimensions.width
-              )}
-            >
-              <Icon size={24} name={'Ionicons/md-settings-outline'} />
-            </View>
-
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'flex-start', flex: 100, gap: 2 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['Text'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['Text'].style,
-                    {
-                      color: 'rgb(31, 41, 55)',
-                      fontFamily: 'Raleway_600SemiBold',
-                      fontSize: 16,
-                      lineHeight: 16,
-                    }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'Settings'}
-              </Text>
-            </View>
-            {/* Icon 2 */}
-            <Icon size={24} name={'AntDesign/right'} />
-          </View>
-        </Pressable>
-        {/* Pressable 4 */}
-        <Pressable
-          onPress={() => {
-            try {
-              navigation.push('AppTabNavigator', {
-                screen: 'ProfileNavigator',
-                params: { screen: 'MyProfileScreen' },
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          {/* Membership */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'stretch',
-                borderColor: 'rgb(229, 231, 235)',
-                borderTopWidth: 1,
-                flexDirection: 'row',
-                gap: 16,
-                padding: 8,
-                paddingBottom: 16,
-                paddingTop: 16,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Close Wrapper */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  backgroundColor: theme.colors['Custom Color_4'],
-                  borderRadius: 22,
-                  height: 32,
-                  justifyContent: 'center',
-                  width: 32,
-                },
-                dimensions.width
-              )}
-            >
-              <Icon size={24} name={'MaterialCommunityIcons/crown-outline'} />
-            </View>
-
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'flex-start', flex: 100, gap: 2 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['Text'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['Text'].style,
-                    {
-                      color: 'rgb(31, 41, 55)',
-                      fontFamily: 'Raleway_600SemiBold',
-                      fontSize: 16,
-                      lineHeight: 16,
-                    }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'Membership'}
-              </Text>
-            </View>
-            {/* Icon 2 */}
-            <Icon size={24} name={'AntDesign/right'} />
-          </View>
-        </Pressable>
-        {/* Pressable 5 */}
-        <Pressable
-          onPress={() => {
-            try {
-              navigation.push('AppTabNavigator', {
-                screen: 'ProfileNavigator',
-                params: { screen: 'MyProfileScreen' },
-              });
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          {/* Support */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'stretch',
-                borderColor: 'rgb(229, 231, 235)',
-                borderTopWidth: 1,
-                flexDirection: 'row',
-                gap: 16,
-                padding: 8,
-                paddingBottom: 16,
-                paddingTop: 16,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Close Wrapper */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  backgroundColor: theme.colors['Custom Color_4'],
-                  borderRadius: 22,
-                  height: 32,
-                  justifyContent: 'center',
-                  width: 32,
-                },
-                dimensions.width
-              )}
-            >
-              <Icon size={24} name={'MaterialIcons/support-agent'} />
-            </View>
-
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'flex-start', flex: 100, gap: 2 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['Text'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['Text'].style,
-                    {
-                      color: 'rgb(31, 41, 55)',
-                      fontFamily: 'Raleway_600SemiBold',
-                      fontSize: 16,
-                      lineHeight: 16,
-                    }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'Support'}
-              </Text>
-            </View>
-            {/* Icon 2 */}
-            <Icon size={24} name={'AntDesign/right'} />
-          </View>
-        </Pressable>
-        {/* Pressable 6 */}
-        <Pressable
-          onPress={() => {
-            try {
-              setShowSignOff(true);
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-        >
-          {/* Sign Off */}
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'stretch',
-                borderColor: 'rgb(229, 231, 235)',
-                borderTopWidth: 1,
-                flexDirection: 'row',
-                gap: 16,
-                padding: 8,
-                paddingBottom: 16,
-                paddingTop: 16,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Close Wrapper */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'center',
-                  backgroundColor: theme.colors['Custom Color_4'],
-                  borderRadius: 22,
-                  height: 32,
-                  justifyContent: 'center',
-                  width: 32,
-                },
-                dimensions.width
-              )}
-            >
-              <Icon size={24} name={'Ionicons/ios-exit-outline'} />
-            </View>
-
-            <View
-              style={StyleSheet.applyWidth(
-                { alignItems: 'flex-start', flex: 100, gap: 2 },
-                dimensions.width
-              )}
-            >
-              <Text
-                accessible={true}
-                {...GlobalStyles.TextStyles(theme)['Text'].props}
-                style={StyleSheet.applyWidth(
-                  StyleSheet.compose(
-                    GlobalStyles.TextStyles(theme)['Text'].style,
-                    {
-                      color: 'rgb(31, 41, 55)',
-                      fontFamily: 'Raleway_600SemiBold',
-                      fontSize: 16,
-                      lineHeight: 16,
-                    }
-                  ),
-                  dimensions.width
-                )}
-              >
-                {'Sign Off'}
-              </Text>
-            </View>
-            {/* Icon 2 */}
-            <Icon size={24} name={'AntDesign/right'} />
-          </View>
-        </Pressable>
+        <KPressableProfileBlock title={'My Orders'} />
+        <KPressableProfileBlock title={'Favorites'} />
+        {/* k-pressable_profile 2 */}
+        <KPressableProfileBlock title={'Settings'} />
+        {/* k-pressable_profile 3 */}
+        <KPressableProfileBlock title={'Membership'} />
+        {/* k-pressable_profile 4 */}
+        <KPressableProfileBlock title={'Support'} />
+        {/* k-pressable_profile 5 */}
+        <KPressableProfileBlock title={'Sign Off'} />
       </SimpleStyleScrollView>
       <>
         {!showSignOff ? null : (

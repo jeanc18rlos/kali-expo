@@ -1,16 +1,10 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import KActionHeaderBlock from '../components/KActionHeaderBlock';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import {
-  Button,
-  IconButton,
-  Link,
-  ScreenContainer,
-  VStack,
-  withTheme,
-} from '@draftbit/ui';
+import { Button, Link, ScreenContainer, VStack, withTheme } from '@draftbit/ui';
 import * as WebBrowser from 'expo-web-browser';
 import { Text, View } from 'react-native';
 
@@ -38,52 +32,8 @@ const AuthenticateScreen = props => {
           dimensions.width
         )}
       >
-        {/* Header Wrapper */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 16,
-            },
-            dimensions.width
-          )}
-        >
-          {/* View 2 */}
-          <View></View>
-
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'center',
-                backgroundColor: theme.colors['Custom Color_4'],
-                borderRadius: 22,
-                height: 32,
-                justifyContent: 'center',
-                width: 32,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Icon Button 2 */}
-            <IconButton
-              onPress={() => {
-                try {
-                  navigation.navigate('AuthNavigator', {
-                    screen: 'WelcomeScreen',
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              color={theme.colors['Custom Color_3']}
-              icon={'AntDesign/close'}
-              size={24}
-            />
-          </View>
-        </View>
-
+        <KActionHeaderBlock right_button={true} right_icon={'close'} />
+        {/* Container */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
@@ -97,38 +47,28 @@ const AuthenticateScreen = props => {
           {/* Title */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['HEADING-1'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                color: 'rgb(37, 37, 37)',
-                fontFamily: 'Raleway_700Bold',
-                fontSize: 32,
-                textAlign: 'center',
-              }),
+              GlobalStyles.TextStyles(theme)['HEADING-1'].style,
               dimensions.width
             )}
           >
-            {'Get Started'}
+            {'Get Started\n'}
           </Text>
-          {/* Subtitle 2 */}
+          {/*  Description */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['BODY'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                color: theme.colors['Custom Color_10'],
-                fontFamily: 'Raleway_400Regular',
-                fontSize: 16,
-                textAlign: 'center',
-              }),
+              GlobalStyles.TextStyles(theme)['BODY'].style,
               dimensions.width
             )}
           >
             {
-              'Explore our curated marketplace and see how rewarding healthy habits can be.'
+              'Explore our curated marketplace and see how rewarding healthy habits can be. '
             }
           </Text>
-
+          {/* Container */}
           <VStack
             {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
             style={StyleSheet.applyWidth(
@@ -139,110 +79,74 @@ const AuthenticateScreen = props => {
               dimensions.width
             )}
           >
-            {/* Button primary */}
+            {/* Email */}
             <Button
               onPress={() => {
                 try {
-                  navigation.push('AuthNavigator', {
-                    screen: 'ContinueWithEmailScreen',
+                  navigation.navigate('OnboardingNavigator', {
+                    screen: 'ConnectStepTrackerScreen',
                   });
                 } catch (err) {
                   console.error(err);
                 }
               }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
               icon={'MaterialIcons/email'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: theme.colors['Accent Color'],
-                    borderColor: 'rgb(255, 255, 255)',
-                    borderRadius: 59,
-                    color: 'rgb(255, 255, 255)',
-                    fontFamily: 'Raleway_600SemiBold',
-                    fontSize: 16,
-                    height: 64,
-                    padding: 16,
-                  }
-                ),
+                GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
                 dimensions.width
               )}
               title={'Continue with email'}
             />
-            {/* Button Secondary */}
+            {/* Apple */}
             <Button
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-              icon={'Entypo/app-store'}
+              onPress={() => {
+                try {
+                  navigation.navigate('OnboardingNavigator', {
+                    screen: 'ConnectStepTrackerScreen',
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Button Secondary'].props}
+              icon={'MaterialCommunityIcons/apple'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: theme.colors['Accent Color'],
-                    borderRadius: 59,
-                    borderWidth: 1,
-                    color: 'rgb(45, 45, 45)',
-                    fontFamily: 'Raleway_600SemiBold',
-                    fontSize: 16,
-                    height: 64,
-                    padding: 16,
-                  }
-                ),
+                GlobalStyles.ButtonStyles(theme)['Button Secondary'].style,
                 dimensions.width
               )}
-              title={'Continue with Apple'}
+              title={'Continue with apple'}
             />
-            {/* Button Secondary */}
+            {/* Google */}
             <Button
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              onPress={() => {
+                try {
+                  navigation.navigate('OnboardingNavigator', {
+                    screen: 'ConnectStepTrackerScreen',
+                  });
+                } catch (err) {
+                  console.error(err);
+                }
+              }}
+              {...GlobalStyles.ButtonStyles(theme)['Button Secondary'].props}
               icon={'AntDesign/google'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: theme.colors['Accent Color'],
-                    borderRadius: 59,
-                    borderWidth: 1,
-                    color: 'rgb(45, 45, 45)',
-                    fontFamily: 'Raleway_600SemiBold',
-                    fontSize: 16,
-                    height: 64,
-                    padding: 16,
-                  }
-                ),
+                GlobalStyles.ButtonStyles(theme)['Button Secondary'].style,
                 dimensions.width
               )}
               title={'Continue with Google'}
             />
           </VStack>
-          {/* Subtitle */}
+          {/* Description */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['BODY'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'center',
-                color: theme.colors['Custom Color_10'],
-                fontFamily: 'Raleway_400Regular',
-                fontSize: 16,
-                textAlign: 'center',
-              }),
+              GlobalStyles.TextStyles(theme)['BODY'].style,
               dimensions.width
             )}
           >
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
-              style={StyleSheet.applyWidth(
-                GlobalStyles.TextStyles(theme)['Text'].style,
-                dimensions.width
-              )}
-            >
-              {'By continuing your accept our'}
-            </Text>
-            {null}
+            {'By continuing your accept our  '}
           </Text>
           {/* Subtitle 3 */}
           <Text

@@ -1,5 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import KActionHeaderBlock from '../components/KActionHeaderBlock';
+import KPressableSettingsBlock from '../components/KPressableSettingsBlock';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
@@ -31,76 +33,11 @@ const SettingsScreen = props => {
       hasSafeArea={true}
       hasTopSafeArea={true}
     >
-      {/* Header Wrapper */}
-      <View
-        style={StyleSheet.applyWidth(
-          {
-            alignItems: 'center',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: 16,
-          },
-          dimensions.width
-        )}
-      >
-        {/* Go back Wrapper */}
-        <View
-          style={StyleSheet.applyWidth(
-            { flexDirection: 'column' },
-            dimensions.width
-          )}
-        >
-          {/* Go back Button */}
-          <IconButton
-            onPress={() => {
-              try {
-                navigation.push('AppTabNavigator', {
-                  screen: 'ProfileNavigator',
-                  params: { screen: 'MyProfileScreen' },
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            color={theme.colors['Custom Color_2']}
-            icon={'AntDesign/left'}
-            size={24}
-          />
-        </View>
-
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['Text'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-              alignSelf: 'center',
-              color: 'rgb(32, 32, 32)',
-              fontFamily: 'Raleway_600SemiBold',
-              fontSize: 16,
-              lineHeight: 24,
-            }),
-            dimensions.width
-          )}
-        >
-          {'SETTINGS'}
-        </Text>
-        {/* Close Wrapper */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              alignItems: 'center',
-              alignSelf: 'center',
-              backgroundColor: 'rgb(255, 255, 255)',
-              borderRadius: 22,
-              height: 32,
-              justifyContent: 'center',
-              width: 32,
-            },
-            dimensions.width
-          )}
-        />
-      </View>
-
+      <KActionHeaderBlock
+        left_button={true}
+        right_button={true}
+        title={'SETTINGS'}
+      />
       <SimpleStyleScrollView
         bounces={true}
         horizontal={false}
@@ -113,297 +50,48 @@ const SettingsScreen = props => {
           dimensions.width
         )}
       >
-        {/* View 3 */}
+        {/* Container */}
         <View>
           {/* Account Settings */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['SUBTITLE-SMALL'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                color: 'rgb(100, 100, 100)',
-                fontSize: 12,
-                letterSpacing: 0.48,
-                lineHeight: 16,
-                textTransform: 'uppercase',
-              }),
+              GlobalStyles.TextStyles(theme)['SUBTITLE-SMALL'].style,
               dimensions.width
             )}
           >
             {'Account Settings'}
           </Text>
-
-          <Pressable
-            onPress={() => {
-              try {
-                navigation.push('AppTabNavigator', {
-                  screen: 'ProfileNavigator',
-                  params: { screen: 'PushNotificationsScreen' },
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-          >
-            {/* Notifications */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'stretch',
-                  borderColor: 'rgb(229, 231, 235)',
-                  borderTopWidth: 1,
-                  flexDirection: 'row',
-                  gap: 16,
-                  padding: 8,
-                  paddingBottom: 16,
-                  paddingTop: 16,
-                },
-                dimensions.width
-              )}
-            >
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'flex-start', flex: 100, gap: 2 },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  {...GlobalStyles.TextStyles(theme)['Text'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['Text'].style,
-                      {
-                        color: 'rgb(31, 41, 55)',
-                        fontFamily: 'Raleway_600SemiBold',
-                        fontSize: 16,
-                        lineHeight: 16,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {'Notifications'}
-                </Text>
-              </View>
-              {/* Icon 2 */}
-              <Icon size={24} name={'AntDesign/right'} />
-            </View>
-          </Pressable>
-          {/* Pressable 2 */}
-          <Pressable
-            onPress={() => {
-              try {
-                navigation.push('AppTabNavigator', { screen: 'HomeScreen' });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-          >
-            {/* App Tracking */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'stretch',
-                  borderColor: 'rgb(229, 231, 235)',
-                  borderTopWidth: 1,
-                  flexDirection: 'row',
-                  gap: 16,
-                  padding: 8,
-                  paddingBottom: 16,
-                  paddingTop: 16,
-                },
-                dimensions.width
-              )}
-            >
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'flex-start', flex: 100, gap: 2 },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  {...GlobalStyles.TextStyles(theme)['Text'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['Text'].style,
-                      {
-                        color: 'rgb(31, 41, 55)',
-                        fontFamily: 'Raleway_600SemiBold',
-                        fontSize: 16,
-                        lineHeight: 16,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {'App Tracking'}
-                </Text>
-              </View>
-              {/* Icon 2 */}
-              <Icon size={24} name={'AntDesign/right'} />
-            </View>
-          </Pressable>
+          <KPressableSettingsBlock title={'Notifications'} />
+          {/* k-pressable_settings 2 */}
+          <KPressableSettingsBlock title={'App Tracking'} />
         </View>
-        {/* View 2 */}
+        {/* Container */}
         <View>
           {/* Permissions */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['SUBTITLE-SMALL'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                color: 'rgb(100, 100, 100)',
-                fontSize: 12,
-                letterSpacing: 0.48,
-                lineHeight: 16,
-                textTransform: 'uppercase',
-              }),
+              GlobalStyles.TextStyles(theme)['SUBTITLE-SMALL'].style,
               dimensions.width
             )}
           >
             {'Permissions'}
           </Text>
-          {/* Pressable 3 */}
-          <Pressable
-            onPress={() => {
-              try {
-                navigation.push('AppTabNavigator', {
-                  screen: 'ProfileNavigator',
-                  params: { screen: 'MyProfileScreen' },
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            style={StyleSheet.applyWidth(
-              { borderColor: 'rgb(229, 231, 235)' },
-              dimensions.width
-            )}
-          >
-            {/* Step Tracker */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'stretch',
-                  borderColor: 'rgb(229, 231, 235)',
-                  borderTopWidth: 1,
-                  flexDirection: 'row',
-                  gap: 16,
-                  padding: 8,
-                  paddingBottom: 16,
-                  paddingTop: 16,
-                },
-                dimensions.width
-              )}
-            >
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'flex-start', flex: 100, gap: 2 },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  {...GlobalStyles.TextStyles(theme)['Text'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['Text'].style,
-                      {
-                        color: 'rgb(31, 41, 55)',
-                        fontFamily: 'Raleway_600SemiBold',
-                        fontSize: 16,
-                        lineHeight: 16,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {'Step Tracker'}
-                </Text>
-              </View>
-              {/* Icon 2 */}
-              <Icon size={24} name={'AntDesign/right'} />
-            </View>
-          </Pressable>
-          {/* Pressable 4 */}
-          <Pressable
-            onPress={() => {
-              try {
-                navigation.push('AppTabNavigator', {
-                  screen: 'ProfileNavigator',
-                  params: { screen: 'GoalScreen' },
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-          >
-            {/* Goal */}
-            <View
-              style={StyleSheet.applyWidth(
-                {
-                  alignItems: 'center',
-                  alignSelf: 'stretch',
-                  borderColor: 'rgb(229, 231, 235)',
-                  borderTopWidth: 1,
-                  flexDirection: 'row',
-                  gap: 16,
-                  padding: 8,
-                  paddingBottom: 16,
-                  paddingTop: 16,
-                },
-                dimensions.width
-              )}
-            >
-              <View
-                style={StyleSheet.applyWidth(
-                  { alignItems: 'flex-start', flex: 100, gap: 2 },
-                  dimensions.width
-                )}
-              >
-                <Text
-                  accessible={true}
-                  {...GlobalStyles.TextStyles(theme)['Text'].props}
-                  style={StyleSheet.applyWidth(
-                    StyleSheet.compose(
-                      GlobalStyles.TextStyles(theme)['Text'].style,
-                      {
-                        color: 'rgb(31, 41, 55)',
-                        fontFamily: 'Raleway_600SemiBold',
-                        fontSize: 16,
-                        lineHeight: 16,
-                      }
-                    ),
-                    dimensions.width
-                  )}
-                >
-                  {'Goal'}
-                </Text>
-              </View>
-              {/* Icon 2 */}
-              <Icon size={24} name={'AntDesign/right'} />
-            </View>
-          </Pressable>
+          <KPressableSettingsBlock title={'Step Tracker'} />
+          {/* k-pressable_settings 2 */}
+          <KPressableSettingsBlock title={'Goal'} />
         </View>
-
+        {/* Container */}
         <View>
           {/* Information */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['SUBTITLE-SMALL'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                color: 'rgb(100, 100, 100)',
-                fontSize: 12,
-                letterSpacing: 0.48,
-                lineHeight: 16,
-                textTransform: 'uppercase',
-              }),
+              GlobalStyles.TextStyles(theme)['SUBTITLE-SMALL'].style,
               dimensions.width
             )}
           >

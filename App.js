@@ -40,10 +40,10 @@ const App = () => {
     DMSans_500Medium: Fonts.DMSans_500Medium,
     DMSans_400Regular: Fonts.DMSans_400Regular,
     Inter_600SemiBold: Fonts.Inter_600SemiBold,
-    Raleway_400Regular: Fonts.Raleway_400Regular,
-    Raleway_500Medium: Fonts.Raleway_500Medium,
     Raleway_600SemiBold: Fonts.Raleway_600SemiBold,
     Raleway_700Bold: Fonts.Raleway_700Bold,
+    Raleway_500Medium: Fonts.Raleway_500Medium,
+    Raleway_400Regular: Fonts.Raleway_400Regular,
     Raleway_300Light: Fonts.Raleway_300Light,
     Rubik_600SemiBold: Fonts.Rubik_600SemiBold,
   });

@@ -4,7 +4,7 @@ import * as GlobalVariables from '../config/GlobalVariableContext';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
-import { Icon, IconButton, Pressable, withTheme } from '@draftbit/ui';
+import { Icon, IconButton, Pressable, VStack, withTheme } from '@draftbit/ui';
 import { Image, Text, View } from 'react-native';
 
 const ProductCardBlock = props => {
@@ -51,71 +51,69 @@ const ProductCardBlock = props => {
             dimensions.width
           )}
         />
-        {/* Product Title */}
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['Text'].props}
+        <VStack
+          {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-              color: theme.colors['Custom Color_21'],
-              fontFamily: 'Raleway_400Regular',
-              marginTop: 8,
-            }),
+            StyleSheet.compose(
+              GlobalStyles.VStackStyles(theme)['V Stack'].style,
+              {
+                alignContent: 'center',
+                alignItems: 'center',
+                alignSelf: 'stretch',
+              }
+            ),
             dimensions.width
           )}
         >
-          {props.title ?? 'Product title'}
-        </Text>
-        {/* Product Description */}
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['Text'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-              alignSelf: 'center',
-              color: theme.colors['Custom Color_21'],
-              fontFamily: 'Raleway_400Regular',
-            }),
-            dimensions.width
-          )}
-        >
-          {props.description ?? 'Product Description'}
-        </Text>
-        {/* Product Price */}
-        <>
-          {!(props.price ?? 3.99) ? null : (
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    color: theme.colors['Custom Color_21'],
-                    fontFamily: 'Raleway_700Bold',
-                  }
-                ),
-                dimensions.width
-              )}
-            >
-              {props.price ?? 3.99}
-            </Text>
-          )}
-        </>
-        {/* Product founder */}
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['Text'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-              color: theme.colors['Custom Color_21'],
-              fontFamily: 'Raleway_400Regular',
-            }),
-            dimensions.width
-          )}
-        >
-          {props.founder ?? 'Product Brand'}
-        </Text>
+          {/* Product Title */}
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['HEADING-6'].props}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.TextStyles(theme)['HEADING-6'].style,
+              dimensions.width
+            )}
+          >
+            {props.title ?? 'Product title'}
+          </Text>
+          {/* Product Description */}
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['BODY'].props}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.TextStyles(theme)['BODY'].style,
+              dimensions.width
+            )}
+          >
+            {props.description ?? 'Product Description'}
+          </Text>
+          {/* Product Price */}
+          <>
+            {!(props.price ?? 3.99) ? null : (
+              <Text
+                accessible={true}
+                {...GlobalStyles.TextStyles(theme)['HEADING-6'].props}
+                style={StyleSheet.applyWidth(
+                  GlobalStyles.TextStyles(theme)['HEADING-6'].style,
+                  dimensions.width
+                )}
+              >
+                {props.price ?? 3.99}
+              </Text>
+            )}
+          </>
+          {/* Product founder */}
+          <Text
+            accessible={true}
+            {...GlobalStyles.TextStyles(theme)['BODY-SMALL'].props}
+            style={StyleSheet.applyWidth(
+              GlobalStyles.TextStyles(theme)['BODY-SMALL'].style,
+              dimensions.width
+            )}
+          >
+            {props.founder ?? 'Product Brand'}
+          </Text>
+        </VStack>
         {/* Favorite Wrapper */}
         <View
           style={StyleSheet.applyWidth(

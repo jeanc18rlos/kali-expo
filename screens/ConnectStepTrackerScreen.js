@@ -32,7 +32,7 @@ const ConnectStepTrackerScreen = props => {
           dimensions.width
         )}
       >
-        {/* V Stack 2 */}
+        {/* Container */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
@@ -43,6 +43,7 @@ const ConnectStepTrackerScreen = props => {
             dimensions.width
           )}
         >
+          {/* SKIP */}
           <Link
             accessible={true}
             onPress={() => {
@@ -55,65 +56,49 @@ const ConnectStepTrackerScreen = props => {
                 console.error(err);
               }
             }}
-            {...GlobalStyles.LinkStyles(theme)['Link'].props}
+            {...GlobalStyles.LinkStyles(theme)['SKIP'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
-                alignSelf: 'flex-end',
-                color: theme.colors['Typography Color'],
-                fontFamily: 'Raleway_400Regular',
-                textDecorationLine: 'underline',
+              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['SKIP'].style, {
+                marginBottom: 8,
               }),
               dimensions.width
             )}
             title={'SKIP'}
           />
+          {/* Title */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['HEADING-2'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'center',
-                color: theme.colors['Typography Color'],
-                fontFamily: 'Raleway_700Bold',
-                fontSize: 24,
-                marginTop: 16,
-                textAlign: 'left',
-              }),
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['HEADING-2'].style,
+                { marginBottom: 24, textAlign: 'left' }
+              ),
               dimensions.width
             )}
           >
             {'Connect your favorite fitness watch or app to start \nearning.'}
           </Text>
-
+          {/* Subtitle */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['SUBTITLE'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                alignSelf: 'flex-start',
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_500Medium',
-                fontSize: 16,
-                marginTop: 28,
-                textAlign: 'left',
-              }),
+              StyleSheet.compose(
+                GlobalStyles.TextStyles(theme)['SUBTITLE'].style,
+                { marginBottom: 8, textAlign: 'left' }
+              ),
               dimensions.width
             )}
           >
             {"Connect and we'll do the rest!"}
           </Text>
-          {/* Text 2 */}
+          {/* Description */}
           <Text
             accessible={true}
-            {...GlobalStyles.TextStyles(theme)['Text'].props}
+            {...GlobalStyles.TextStyles(theme)['BODY'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-                color: 'rgb(52, 52, 52)',
-                fontFamily: 'Raleway_300Light',
-                fontSize: 16,
-                marginTop: 8,
-                textAlign: 'left',
-              }),
+              GlobalStyles.TextStyles(theme)['BODY'].style,
               dimensions.width
             )}
           >
@@ -122,7 +107,7 @@ const ConnectStepTrackerScreen = props => {
             }
           </Text>
         </VStack>
-
+        {/* Container */}
         <VStack
           {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
           style={StyleSheet.applyWidth(
@@ -133,19 +118,13 @@ const ConnectStepTrackerScreen = props => {
             dimensions.width
           )}
         >
-          {/* Button 2 */}
+          {/* Connect Button */}
           <Button
-            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
-                GlobalStyles.ButtonStyles(theme)['Button'].style,
-                {
-                  backgroundColor: 'rgb(38, 38, 38)',
-                  borderRadius: 31,
-                  fontFamily: 'Rubik_600SemiBold',
-                  padding: 20,
-                  width: '100%',
-                }
+                GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
+                { fontFamily: 'Rubik_600SemiBold' }
               ),
               dimensions.width
             )}

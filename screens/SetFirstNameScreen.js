@@ -47,6 +47,7 @@ const SetFirstNameScreen = props => {
             dimensions.width
           )}
         >
+          {/* SKIP */}
           <Link
             accessible={true}
             onPress={() => {
@@ -59,14 +60,9 @@ const SetFirstNameScreen = props => {
                 console.error(err);
               }
             }}
-            {...GlobalStyles.LinkStyles(theme)['Link'].props}
+            {...GlobalStyles.LinkStyles(theme)['SKIP'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
-                alignSelf: 'flex-end',
-                color: theme.colors['Typography Color'],
-                fontFamily: 'Raleway_400Regular',
-                textDecorationLine: 'underline',
-              }),
+              GlobalStyles.LinkStyles(theme)['SKIP'].style,
               dimensions.width
             )}
             title={'SKIP'}
@@ -89,6 +85,7 @@ const SetFirstNameScreen = props => {
                 alignItems: 'flex-start',
                 alignSelf: 'auto',
                 flexGrow: 1,
+                gap: 16,
                 justifyContent: 'flex-end',
                 marginLeft: 18,
                 marginRight: 18,
@@ -97,35 +94,23 @@ const SetFirstNameScreen = props => {
               dimensions.width
             )}
           >
-            {/* Screen Title */}
+            {/* Title */}
             <Text
               accessible={true}
+              {...GlobalStyles.TextStyles(theme)['HEADING-2'].props}
               style={StyleSheet.applyWidth(
-                {
-                  color: theme.colors.strong,
-                  fontFamily: 'Raleway_700Bold',
-                  fontSize: 24,
-                  marginBottom: 16,
-                  textAlign: 'center',
-                  typography: theme.typography.headline4,
-                },
+                GlobalStyles.TextStyles(theme)['HEADING-2'].style,
                 dimensions.width
               )}
             >
               {'How should we call you?'}
             </Text>
-            {/* Screen Description */}
+            {/* Description */}
             <Text
               accessible={true}
+              {...GlobalStyles.TextStyles(theme)['BODY'].props}
               style={StyleSheet.applyWidth(
-                {
-                  color: theme.colors.medium,
-                  fontFamily: 'Raleway_300Light',
-                  fontSize: 16,
-                  marginBottom: 16,
-                  textAlign: 'center',
-                  typography: theme.typography.body1,
-                },
+                GlobalStyles.TextStyles(theme)['BODY'].style,
                 dimensions.width
               )}
             >
@@ -144,27 +129,10 @@ const SetFirstNameScreen = props => {
                 }
               }}
               webShowOutline={true}
+              {...GlobalStyles.TextInputStyles(theme)['text-input'].props}
               placeholder={'Enter your name here'}
-              placeholderTextColor={theme.colors['Light']}
               style={StyleSheet.applyWidth(
-                {
-                  borderBottomWidth: 1,
-                  borderColor: theme.colors['Custom Color'],
-                  borderLeftWidth: 1,
-                  borderRadius: 16,
-                  borderRightWidth: 1,
-                  borderTopWidth: 1,
-                  borderWidth: 1,
-                  color: theme.colors['Input Color'],
-                  fontFamily: 'Raleway_500Medium',
-                  height: 56,
-                  marginBottom: 16,
-                  paddingBottom: 0,
-                  paddingLeft: 16,
-                  paddingRight: 16,
-                  paddingTop: 0,
-                  width: '100%',
-                },
+                GlobalStyles.TextInputStyles(theme)['text-input'].style,
                 dimensions.width
               )}
               value={textInputValue}
@@ -184,7 +152,7 @@ const SetFirstNameScreen = props => {
               dimensions.width
             )}
           >
-            {/* Screen nav link */}
+            {/* That´s Me Button */}
             <Button
               onLongPress={() => {
                 try {
@@ -212,22 +180,9 @@ const SetFirstNameScreen = props => {
                 };
                 handler();
               }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: theme.colors['Accent Color'],
-                    borderColor: 'rgb(255, 255, 255)',
-                    borderRadius: 59,
-                    color: 'rgb(255, 255, 255)',
-                    fontFamily: 'Raleway_600SemiBold',
-                    fontSize: 16,
-                    height: 64,
-                    marginTop: 24,
-                    padding: 16,
-                  }
-                ),
+                GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
                 dimensions.width
               )}
               title={"That's me!"}

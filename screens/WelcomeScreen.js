@@ -43,11 +43,11 @@ const WelcomeScreen = props => {
             <KaliIcon.Icon />
           </Utils.CustomCodeErrorBoundary>
         </Center>
-        {/* Screen Content */}
+        {/* Content */}
         <View
           style={StyleSheet.applyWidth({ paddingTop: 40 }, dimensions.width)}
         >
-          {/* Screen Title */}
+          {/* Title */}
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['Text'].props}
@@ -60,36 +60,23 @@ const WelcomeScreen = props => {
               dimensions.width
             )}
           >
+            {/* Text Title */}
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['HEADING-1'].props}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
+                  GlobalStyles.TextStyles(theme)['HEADING-1'].style,
                   { color: null }
                 ),
                 dimensions.width
               )}
             >
-              {'Take '}
-            </Text>
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  { color: null, fontFamily: 'Raleway_700Bold' }
-                ),
-                dimensions.width
-              )}
-            >
-              {'Steps'}
+              {'Make Steps'}
             </Text>
             {null}
           </Text>
-          {/* Screen Title */}
+          {/* Title */}
           <Text
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['Text'].props}
@@ -102,36 +89,20 @@ const WelcomeScreen = props => {
               dimensions.width
             )}
           >
+            {/* Text Title */}
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['HEADING-1'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  { color: null }
-                ),
+                GlobalStyles.TextStyles(theme)['HEADING-1'].style,
                 dimensions.width
               )}
             >
-              {'Earn '}
-            </Text>
-            {/* Text 2 */}
-            <Text
-              accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  { fontFamily: 'Raleway_700Bold' }
-                ),
-                dimensions.width
-              )}
-            >
-              {'Rewards'}
+              {'Earn Rewards'}
             </Text>
             {null}
           </Text>
-          {/* Screen nav link */}
+          {/* Get Started Button */}
           <Button
             onPress={() => {
               try {
@@ -142,16 +113,14 @@ const WelcomeScreen = props => {
                 console.error(err);
               }
             }}
-            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
             style={StyleSheet.applyWidth(
               StyleSheet.compose(
-                GlobalStyles.ButtonStyles(theme)['Button'].style,
+                GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
                 {
                   backgroundColor: theme.colors['Accent Color'],
                   borderColor: 'rgb(255, 255, 255)',
                   borderRadius: 59,
-                  color: 'rgb(255, 255, 255)',
-                  fontFamily: 'Raleway_600SemiBold',
                   fontSize: 16,
                   height: 64,
                   marginTop: 24,

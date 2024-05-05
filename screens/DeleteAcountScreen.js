@@ -218,21 +218,9 @@ const DeleteAcountScreen = props => {
           )}
         >
           <Button
-            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            {...GlobalStyles.ButtonStyles(theme)['Button Tertiary'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.ButtonStyles(theme)['Button'].style,
-                {
-                  backgroundColor: 'rgb(229, 72, 77)',
-                  borderRadius: 31,
-                  fontFamily: 'Raleway_700Bold',
-                  fontSize: 16,
-                  height: 56,
-                  lineHeight: 18,
-                  paddingLeft: 20,
-                  paddingRight: 20,
-                }
-              ),
+              GlobalStyles.ButtonStyles(theme)['Button Tertiary'].style,
               dimensions.width
             )}
             title={'Submit and delete'}

@@ -1,12 +1,12 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
+import KActionHeaderBlock from '../components/KActionHeaderBlock';
 import Images from '../config/Images';
 import Breakpoints from '../utils/Breakpoints';
 import * as StyleSheet from '../utils/StyleSheet';
 import openImagePickerUtil from '../utils/openImagePicker';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
-  Button,
   DatePicker,
   HStack,
   IconButton,
@@ -38,80 +38,12 @@ const EditProfileScreen = props => {
         dimensions.width
       )}
     >
-      {/* Header Wrapper */}
-      <View
-        style={StyleSheet.applyWidth(
-          {
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            padding: 16,
-          },
-          dimensions.width
-        )}
-      >
-        {/* Go back Wrapper */}
-        <View>
-          {/* Go back Button */}
-          <IconButton
-            onPress={() => {
-              try {
-                navigation.push('AppTabNavigator', {
-                  screen: 'ProfileNavigator',
-                  params: { screen: 'MyProfileScreen' },
-                });
-              } catch (err) {
-                console.error(err);
-              }
-            }}
-            color={theme.colors['Custom Color_2']}
-            icon={'AntDesign/left'}
-            size={24}
-          />
-        </View>
-
-        <Text
-          accessible={true}
-          {...GlobalStyles.TextStyles(theme)['Text'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
-              alignSelf: 'center',
-              color: 'rgb(32, 32, 32)',
-              fontFamily: 'Raleway_600SemiBold',
-              fontSize: 16,
-              lineHeight: 24,
-            }),
-            dimensions.width
-          )}
-        >
-          {'EDIT PROFILE'}
-        </Text>
-        <Button
-          onPress={() => {
-            try {
-              /* 'Set Variable' action requires configuration: choose a variable */
-            } catch (err) {
-              console.error(err);
-            }
-          }}
-          {...GlobalStyles.ButtonStyles(theme)['Button'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(
-              GlobalStyles.ButtonStyles(theme)['Button'].style,
-              {
-                backgroundColor: '"rgb(240, 240, 240)"',
-                borderRadius: 31,
-                color: 'rgb(48, 48, 48)',
-                fontFamily: 'Raleway_600SemiBold',
-                fontSize: 16,
-                lineHeight: 24,
-              }
-            ),
-            dimensions.width
-          )}
-          title={'Save'}
-        />
-      </View>
-
+      <KActionHeaderBlock
+        left_button={true}
+        right_button={true}
+        title={'EDIT PROFILE'}
+      />
+      {/* Container */}
       <View
         style={StyleSheet.applyWidth(
           { flexDirection: 'column', padding: 16, width: '100%' },
@@ -225,7 +157,7 @@ const EditProfileScreen = props => {
           dimensions.width
         )}
       >
-        {/* View 2 */}
+        {/* Container */}
         <View
           style={StyleSheet.applyWidth(
             { alignItems: 'stretch', gap: 24, padding: 16 },
@@ -241,17 +173,9 @@ const EditProfileScreen = props => {
           >
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['BODY-SMALL'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    alignSelf: 'stretch',
-                    color: 'rgb(60, 60, 60)',
-                    fontFamily: 'Raleway_500Medium',
-                    letterSpacing: 0.14,
-                  }
-                ),
+                GlobalStyles.TextStyles(theme)['BODY-SMALL'].style,
                 dimensions.width
               )}
             >
@@ -270,22 +194,10 @@ const EditProfileScreen = props => {
                 }
               }}
               webShowOutline={true}
-              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+              {...GlobalStyles.TextInputStyles(theme)['text-input'].props}
               placeholder={'Name'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  {
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: 'rgb(93, 93, 93)',
-                    borderRadius: 16,
-                    color: 'rgb(148, 148, 148)',
-                    paddingBottom: 16,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 16,
-                  }
-                ),
+                GlobalStyles.TextInputStyles(theme)['text-input'].style,
                 dimensions.width
               )}
               value={textInputValue}
@@ -300,17 +212,9 @@ const EditProfileScreen = props => {
           >
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['BODY-SMALL'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    alignSelf: 'stretch',
-                    color: 'rgb(60, 60, 60)',
-                    fontFamily: 'Raleway_500Medium',
-                    letterSpacing: 0.14,
-                  }
-                ),
+                GlobalStyles.TextStyles(theme)['BODY-SMALL'].style,
                 dimensions.width
               )}
             >
@@ -329,22 +233,10 @@ const EditProfileScreen = props => {
                 }
               }}
               webShowOutline={true}
-              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+              {...GlobalStyles.TextInputStyles(theme)['text-input'].props}
               placeholder={'Last Name'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  {
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: 'rgb(93, 93, 93)',
-                    borderRadius: 16,
-                    color: 'rgb(148, 148, 148)',
-                    paddingBottom: 16,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 16,
-                  }
-                ),
+                GlobalStyles.TextInputStyles(theme)['text-input'].style,
                 dimensions.width
               )}
               value={textInputValue}
@@ -359,17 +251,9 @@ const EditProfileScreen = props => {
           >
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['BODY-SMALL'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    alignSelf: 'stretch',
-                    color: 'rgb(60, 60, 60)',
-                    fontFamily: 'Raleway_500Medium',
-                    letterSpacing: 0.14,
-                  }
-                ),
+                GlobalStyles.TextStyles(theme)['BODY-SMALL'].style,
                 dimensions.width
               )}
             >
@@ -388,22 +272,12 @@ const EditProfileScreen = props => {
                 }
               }}
               webShowOutline={true}
-              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+              {...GlobalStyles.TextInputStyles(theme)['text-input'].props}
               placeholder={'Bio'}
               style={StyleSheet.applyWidth(
                 StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  {
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: 'rgb(93, 93, 93)',
-                    borderRadius: 16,
-                    color: 'rgb(148, 148, 148)',
-                    height: 82,
-                    paddingBottom: 16,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 16,
-                  }
+                  GlobalStyles.TextInputStyles(theme)['text-input'].style,
+                  { height: 82 }
                 ),
                 dimensions.width
               )}
@@ -419,17 +293,9 @@ const EditProfileScreen = props => {
           >
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['BODY-SMALL'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    alignSelf: 'stretch',
-                    color: 'rgb(60, 60, 60)',
-                    fontFamily: 'Raleway_500Medium',
-                    letterSpacing: 0.14,
-                  }
-                ),
+                GlobalStyles.TextStyles(theme)['BODY-SMALL'].style,
                 dimensions.width
               )}
             >
@@ -448,22 +314,10 @@ const EditProfileScreen = props => {
                 }
               }}
               webShowOutline={true}
-              {...GlobalStyles.TextInputStyles(theme)['Text Input'].props}
+              {...GlobalStyles.TextInputStyles(theme)['email-input'].props}
               placeholder={'Email'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextInputStyles(theme)['Text Input'].style,
-                  {
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: 'rgb(93, 93, 93)',
-                    borderRadius: 16,
-                    color: 'rgb(148, 148, 148)',
-                    paddingBottom: 16,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 16,
-                  }
-                ),
+                GlobalStyles.TextInputStyles(theme)['email-input'].style,
                 dimensions.width
               )}
               value={textInputValue}
@@ -478,17 +332,9 @@ const EditProfileScreen = props => {
           >
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['BODY-SMALL'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    alignSelf: 'stretch',
-                    color: 'rgb(60, 60, 60)',
-                    fontFamily: 'Raleway_500Medium',
-                    letterSpacing: 0.14,
-                  }
-                ),
+                GlobalStyles.TextStyles(theme)['BODY-SMALL'].style,
                 dimensions.width
               )}
             >
@@ -505,24 +351,12 @@ const EditProfileScreen = props => {
                 }
               }}
               webShowOutline={true}
-              {...GlobalStyles.NumberInputStyles(theme)['Number Input'].props}
+              {...GlobalStyles.NumberInputStyles(theme)['number-input'].props}
               keyboardType={'number-pad'}
               placeholder={'Enter a phone number...'}
               returnKeyType={'next'}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.NumberInputStyles(theme)['Number Input'].style,
-                  {
-                    borderColor: 'rgb(93, 93, 93)',
-                    borderRadius: 16,
-                    color: 'rgb(148, 148, 148)',
-                    fontFamily: 'Raleway_400Regular',
-                    paddingBottom: 16,
-                    paddingLeft: 16,
-                    paddingRight: 16,
-                    paddingTop: 16,
-                  }
-                ),
+                GlobalStyles.NumberInputStyles(theme)['number-input'].style,
                 dimensions.width
               )}
               value={numberInputValue}
@@ -537,17 +371,9 @@ const EditProfileScreen = props => {
           >
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
+              {...GlobalStyles.TextStyles(theme)['BODY-SMALL'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    alignSelf: 'stretch',
-                    color: 'rgb(60, 60, 60)',
-                    fontFamily: 'Raleway_500Medium',
-                    letterSpacing: 0.14,
-                  }
-                ),
+                GlobalStyles.TextStyles(theme)['BODY-SMALL'].style,
                 dimensions.width
               )}
             >

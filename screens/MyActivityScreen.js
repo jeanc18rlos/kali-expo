@@ -89,7 +89,9 @@ const MyActivityScreen = props => {
             accessible={true}
             {...GlobalStyles.TextStyles(theme)['Text'].props}
             style={StyleSheet.applyWidth(
-              GlobalStyles.TextStyles(theme)['Text'].style,
+              StyleSheet.compose(GlobalStyles.TextStyles(theme)['Text'].style, {
+                lineHeight: 20.626,
+              }),
               dimensions.width
             )}
           >

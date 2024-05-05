@@ -1,6 +1,7 @@
 import React from 'react';
 import * as GlobalStyles from '../GlobalStyles.js';
 import * as AuthApi from '../apis/AuthApi.js';
+import KActionHeaderBlock from '../components/KActionHeaderBlock';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import * as CustomCode from '../custom-files/CustomCode';
 import addBearerPrefix from '../global-functions/addBearerPrefix';
@@ -10,7 +11,6 @@ import * as StyleSheet from '../utils/StyleSheet';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import {
   Button,
-  IconButton,
   KeyboardAvoidingView,
   ScreenContainer,
   SimpleStyleFlatList,
@@ -76,64 +76,12 @@ const SignUpScreen = props => {
           dimensions.width
         )}
       >
-        {/* Header Wrapper */}
-        <View
-          style={StyleSheet.applyWidth(
-            {
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              padding: 16,
-            },
-            dimensions.width
-          )}
-        >
-          {/* View 2 */}
-          <View>
-            <IconButton
-              onPress={() => {
-                try {
-                  navigation.goBack();
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              color={theme.colors['Custom Color_2']}
-              icon={'AntDesign/left'}
-              size={24}
-            />
-          </View>
-
-          <View
-            style={StyleSheet.applyWidth(
-              {
-                alignItems: 'center',
-                alignSelf: 'center',
-                backgroundColor: theme.colors['Custom Color_4'],
-                borderRadius: 22,
-                height: 32,
-                justifyContent: 'center',
-                width: 32,
-              },
-              dimensions.width
-            )}
-          >
-            {/* Icon Button 2 */}
-            <IconButton
-              onPress={() => {
-                try {
-                  navigation.navigate('AuthNavigator', {
-                    screen: 'WelcomeScreen',
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }}
-              color={theme.colors['Custom Color_3']}
-              icon={'AntDesign/close'}
-              size={24}
-            />
-          </View>
-        </View>
+        <KActionHeaderBlock
+          left_button={true}
+          left_icon={'chevron-left'}
+          right_button={true}
+          right_icon={'close'}
+        />
         {/* Input Wrapper */}
         <View
           style={StyleSheet.applyWidth(
@@ -141,6 +89,7 @@ const SignUpScreen = props => {
               alignItems: 'flex-start',
               alignSelf: 'auto',
               flexGrow: 1,
+              gap: 16,
               justifyContent: 'flex-end',
               marginLeft: 18,
               marginRight: 18,
@@ -149,36 +98,23 @@ const SignUpScreen = props => {
             dimensions.width
           )}
         >
-          {/* Screen Title */}
+          {/* Title */}
           <Text
             accessible={true}
+            {...GlobalStyles.TextStyles(theme)['HEADING-2'].props}
             style={StyleSheet.applyWidth(
-              {
-                color: theme.colors.strong,
-                fontFamily: 'Raleway_700Bold',
-                fontSize: 24,
-                marginBottom: 16,
-                textAlign: 'center',
-                typography: theme.typography.headline4,
-              },
+              GlobalStyles.TextStyles(theme)['HEADING-2'].style,
               dimensions.width
             )}
           >
             {'Create a password'}
           </Text>
-          {/* Screen Description */}
+          {/* Description */}
           <Text
             accessible={true}
+            {...GlobalStyles.TextStyles(theme)['BODY-SMALL'].props}
             style={StyleSheet.applyWidth(
-              {
-                alignSelf: 'auto',
-                color: theme.colors.medium,
-                fontFamily: 'Raleway_300Light',
-                fontSize: 16,
-                marginBottom: 16,
-                textAlign: 'left',
-                typography: theme.typography.body1,
-              },
+              GlobalStyles.TextStyles(theme)['BODY-SMALL'].style,
               dimensions.width
             )}
           >
@@ -209,27 +145,10 @@ const SignUpScreen = props => {
               }
             }}
             webShowOutline={true}
+            {...GlobalStyles.TextInputStyles(theme)['password-input'].props}
             placeholder={'Password'}
-            placeholderTextColor={theme.colors['Light']}
             style={StyleSheet.applyWidth(
-              {
-                borderBottomWidth: 1,
-                borderColor: theme.colors['Custom Color'],
-                borderLeftWidth: 1,
-                borderRadius: 16,
-                borderRightWidth: 1,
-                borderTopWidth: 1,
-                borderWidth: 1,
-                color: theme.colors['Input Color'],
-                fontFamily: 'Raleway_500Medium',
-                height: 56,
-                marginBottom: 16,
-                paddingBottom: 0,
-                paddingLeft: 16,
-                paddingRight: 16,
-                paddingTop: 0,
-                width: '100%',
-              },
+              GlobalStyles.TextInputStyles(theme)['password-input'].style,
               dimensions.width
             )}
             value={passwordFieldValue}
@@ -299,6 +218,7 @@ const SignUpScreen = props => {
                     await AuthApi.signUpPOST(Constants, {
                       signupEmail: props.route?.params?.email ?? null,
                       signupPassword: passwordFieldValue,
+                      timezone: 'UTC',
                     })
                   )?.json;
                   if (SignUpResponse?.error_code) {
@@ -327,23 +247,10 @@ const SignUpScreen = props => {
               };
               handler();
             }}
-            {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+            {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
             disabled={!passwordFieldValue || errors?.password?.length > 0}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(
-                GlobalStyles.ButtonStyles(theme)['Button'].style,
-                {
-                  backgroundColor: theme.colors['Accent Color'],
-                  borderColor: 'rgb(255, 255, 255)',
-                  borderRadius: 59,
-                  color: 'rgb(255, 255, 255)',
-                  fontFamily: 'Raleway_600SemiBold',
-                  fontSize: 16,
-                  height: 64,
-                  marginTop: 24,
-                  padding: 16,
-                }
-              ),
+              GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
               dimensions.width
             )}
             title={'Next'}

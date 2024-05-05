@@ -49,6 +49,7 @@ const AllowNotificationsScreen = props => {
             dimensions.width
           )}
         >
+          {/* SKIP */}
           <Link
             accessible={true}
             onPress={() => {
@@ -61,14 +62,9 @@ const AllowNotificationsScreen = props => {
                 console.error(err);
               }
             }}
-            {...GlobalStyles.LinkStyles(theme)['Link'].props}
+            {...GlobalStyles.LinkStyles(theme)['SKIP'].props}
             style={StyleSheet.applyWidth(
-              StyleSheet.compose(GlobalStyles.LinkStyles(theme)['Link'].style, {
-                alignSelf: 'flex-end',
-                color: theme.colors['Typography Color'],
-                fontFamily: 'Raleway_400Regular',
-                textDecorationLine: 'underline',
-              }),
+              GlobalStyles.LinkStyles(theme)['SKIP'].style,
               dimensions.width
             )}
             title={'SKIP'}
@@ -99,19 +95,15 @@ const AllowNotificationsScreen = props => {
               dimensions.width
             )}
           >
-            {/* Screen Title */}
+            {/* Title */}
             <Text
               accessible={true}
+              {...GlobalStyles.TextStyles(theme)['HEADING-2'].props}
               style={StyleSheet.applyWidth(
-                {
-                  alignSelf: 'center',
-                  color: theme.colors.strong,
-                  fontFamily: 'Raleway_700Bold',
-                  fontSize: 24,
-                  marginBottom: 16,
-                  textAlign: 'left',
-                  typography: theme.typography.headline4,
-                },
+                StyleSheet.compose(
+                  GlobalStyles.TextStyles(theme)['HEADING-2'].style,
+                  { textAlign: 'left' }
+                ),
                 dimensions.width
               )}
             >
@@ -127,6 +119,7 @@ const AllowNotificationsScreen = props => {
               {
                 flexGrow: 1,
                 flexShrink: 0,
+                gap: 8,
                 justifyContent: 'flex-end',
                 marginLeft: 18,
                 marginRight: 18,
@@ -135,7 +128,7 @@ const AllowNotificationsScreen = props => {
               dimensions.width
             )}
           >
-            {/* Screen nav link */}
+            {/* Yes Button */}
             <Button
               onLongPress={() => {
                 try {
@@ -172,27 +165,14 @@ const AllowNotificationsScreen = props => {
                 };
                 handler();
               }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              {...GlobalStyles.ButtonStyles(theme)['Button Primary'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: theme.colors['Accent Color'],
-                    borderColor: 'rgb(255, 255, 255)',
-                    borderRadius: 59,
-                    color: 'rgb(255, 255, 255)',
-                    fontFamily: 'Raleway_600SemiBold',
-                    fontSize: 16,
-                    height: 64,
-                    marginBottom: 8,
-                    padding: 16,
-                  }
-                ),
+                GlobalStyles.ButtonStyles(theme)['Button Primary'].style,
                 dimensions.width
               )}
               title={'Yes, please'}
             />
-            {/* Screen nav link 2 */}
+            {/* No Button */}
             <Button
               onLongPress={() => {
                 try {
@@ -212,22 +192,9 @@ const AllowNotificationsScreen = props => {
                   console.error(err);
                 }
               }}
-              {...GlobalStyles.ButtonStyles(theme)['Button'].props}
+              {...GlobalStyles.ButtonStyles(theme)['Button Secondary'].props}
               style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.ButtonStyles(theme)['Button'].style,
-                  {
-                    backgroundColor: 'rgba(0, 0, 0, 0)',
-                    borderColor: 'rgb(82, 82, 82)',
-                    borderRadius: 59,
-                    borderWidth: 1,
-                    color: 'rgb(22, 22, 22)',
-                    fontFamily: 'Raleway_600SemiBold',
-                    fontSize: 16,
-                    height: 64,
-                    padding: 16,
-                  }
-                ),
+                GlobalStyles.ButtonStyles(theme)['Button Secondary'].style,
                 dimensions.width
               )}
               title={'No, thanks'}
