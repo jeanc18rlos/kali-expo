@@ -3,7 +3,7 @@ import * as GlobalStyles from '../GlobalStyles.js';
 import ActivitybarBlock from '../components/ActivitybarBlock';
 import DailyBonusBarBlock from '../components/DailyBonusBarBlock';
 import ProgressCircleBlock from '../components/ProgressCircleBlock';
-import StreakbarBlock from '../components/StreakbarBlock';
+import StreakbarBlock from '../blocks/StreakbarBlock.js';
 import * as GlobalVariables from '../config/GlobalVariableContext';
 import * as CustomCode from '../custom-files/CustomCode';
 import * as PedoMeterLight from '../custom-files/PedoMeterLight';

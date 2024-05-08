@@ -67,7 +67,9 @@
             }
           ]
         }
-      ]
+      ],
+      "expo-router",
+      "expo-localization"
     ],
     "ios": {
       "bundleIdentifier": "com.KaliNative.ios",
@@ -98,7 +100,10 @@
     },
     "extra": {
       "eas": {
-        "projectId": ""
+        "projectId": "37fc8128-4898-4b40-b0cc-a41344f09fda"
+      },
+      "router": {
+        "origin": false
       }
     }
   }
