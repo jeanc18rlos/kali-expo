@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 7.6.2"
+    "version": ">= 9.0.0"
   },
   "build": {
     "development": {
@@ -13,12 +13,6 @@
     "production": {}
   },
   "submit": {
-    "production": {
-      "ios": {
-        "appleId": "dev@kali.day",
-        "ascAppId": "6473566790",
-        "appleTeamId": "AGADQBZCF4"
-      }
-    }
+    "production": {}
   }
 }

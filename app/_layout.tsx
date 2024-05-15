@@ -7,8 +7,6 @@ import {
   initialWindowMetrics,
 } from "react-native-safe-area-context";
 import { LogBox } from "react-native";
-import useResetRoute from "../utils/resetRoute";
-import * as GlobalVariables from "../config/GlobalVariableContext";
 import { AppState } from "react-native";
 import { Provider as ThemeProvider } from "@draftbit/ui";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -18,7 +16,6 @@ import cacheAssetsAsync from "../config/cacheAssetsAsync";
 import { GlobalVariableProvider } from "../config/GlobalVariableContext";
 import { useFonts } from "expo-font";
 import Fonts from "../config/Fonts";
-import { useEffect } from "react";
 
 SplashScreen.preventAutoHideAsync();
 

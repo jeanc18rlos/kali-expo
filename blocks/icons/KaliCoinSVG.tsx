@@ -11,3 +11,5 @@ export const Icon = () => (
     />
   </Svg>
 );
+
+export default Icon;

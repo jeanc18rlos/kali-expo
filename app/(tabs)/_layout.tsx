@@ -20,8 +20,10 @@ export default function TabLayout() {
     <Tabs
       initialRouteName="home"
       screenOptions={{
-        tabBarActiveTintColor: "blue",
-
+        tabBarActiveTintColor: "rgb(37, 37, 37)",
+        tabBarStyle: {
+          height: 100,
+        },
         header: () => {
           return <UserProfileHeader />;
         },
@@ -33,6 +35,25 @@ export default function TabLayout() {
           title: "home",
           tabBarIcon: ({ color }) => (
             <FontAwesome size={28} name="home" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="activity"
+        options={{
+          title: "activity",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="heartbeat" color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          headerShown: false,
+          title: "profile",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome size={28} name="user" color={color} />
           ),
         }}
       />

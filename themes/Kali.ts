@@ -13,6 +13,9 @@ const KaliTheme = {
     error: "rgba(239, 102, 93, 1)",
     premium: "#FFE145",
     "blur-background": "rgba(0, 0, 0, 0.04)",
+    daily_steps_bg: "#4A6BE1FF",
+    extra_steps_bg: "#98DA9FFF",
+    goal_steps_bg: "#646668FF",
     //    draftbit
     // HOME GRADIENT
     "gradient-color-1": "rgb(247, 202, 202)",

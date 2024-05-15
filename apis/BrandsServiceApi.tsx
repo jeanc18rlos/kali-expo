@@ -1,16 +1,9 @@
-import * as React from 'react';
-import {
-  useQuery,
-  useMutation,
-  useIsFetching,
-  useQueryClient,
-} from 'react-query';
-import useFetch from 'react-fetch-hook';
-import { useIsFocused } from '@react-navigation/native';
-import { handleResponse, isOkStatus } from '../utils/handleRestApiResponse';
-import usePrevious from '../utils/usePrevious';
-import encodeQueryParam from '../utils/encodeQueryParam';
-import * as GlobalVariables from '../config/GlobalVariableContext';
+import * as React from "react";
+import { useQuery } from "react-query";
+import { useIsFocused } from "@react-navigation/native";
+import { handleResponse } from "../utils/handleRestApiResponse";
+import usePrevious from "../utils/usePrevious";
+import * as GlobalVariables from "../config/GlobalVariableContext";
 
 export const getBrandsPOST = (Constants, _args, handlers = {}) =>
   fetch(
@@ -18,12 +11,12 @@ export const getBrandsPOST = (Constants, _args, handlers = {}) =>
     {
       body: JSON.stringify({ data: {} }),
       headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
-      method: 'POST',
+      method: "POST",
     }
-  ).then(res => handleResponse(res, handlers));
+  ).then((res) => handleResponse(res, handlers));
 
 export const useGetBrandsPOST = (
   args = {},
@@ -31,7 +24,7 @@ export const useGetBrandsPOST = (
 ) => {
   const Constants = GlobalVariables.useValues();
   return useQuery(
-    ['brands', args],
+    ["brands", args],
     () => getBrandsPOST(Constants, args, handlers),
     {
       refetchInterval,
@@ -67,7 +60,7 @@ export const FetchGetBrandsPOST = ({
 
   React.useEffect(() => {
     if (error) {
-      console.error('Fetch error: ' + error.status + ' ' + error.statusText);
+      console.error("Fetch error: " + error.status + " " + error.statusText);
       console.error(error);
     }
   }, [error]);

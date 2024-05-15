@@ -14,11 +14,15 @@ const AuthRecoveryPasswordScreen = ({ theme }: { theme: KaliThemeType }) => {
   const [submit, setSubmit] = React.useState(false);
   const [emailFieldValue, setEmailFieldValue] = React.useState("");
   const [keyboardHeight, setKeyboardHeight] = React.useState(0);
-  const errors = useValidateEmail(emailFieldValue);
+  const [errors] = useValidateEmail(emailFieldValue);
 
   const onChangeText = (text: string) => {
     const trimmedText = text.trim();
     setEmailFieldValue(trimmedText);
+  };
+
+  const alertEmailSent = () => {
+    alert("Email sent");
   };
 
   const onSubmit = async () => {
@@ -26,7 +30,8 @@ const AuthRecoveryPasswordScreen = ({ theme }: { theme: KaliThemeType }) => {
     if (errors.length > 0 || emailFieldValue.length === 0) {
       return;
     } else {
-      router.push("/auth/register");
+      alert("Email sent");
+      router.push("/auth/reset");
     }
   };
 
@@ -123,7 +128,11 @@ const AuthRecoveryPasswordScreen = ({ theme }: { theme: KaliThemeType }) => {
             {/* Email Input */}
             {/* Email Input */}
             <Link
-              href={"/auth/reset"}
+              href={"/"}
+              onPress={(e) => {
+                e.preventDefault();
+                alertEmailSent();
+              }}
               accessible={true}
               style={[
                 StyleSheet.compose(LinkStyles(theme)["Link"].style, {
@@ -132,6 +141,44 @@ const AuthRecoveryPasswordScreen = ({ theme }: { theme: KaliThemeType }) => {
               ]}
             >
               Resend email
+            </Link>
+            <Link
+              href={"/auth/reset"}
+              onPress={(e) => {
+                router.push({
+                  pathname: "/auth/reset",
+                  params: { code: "123456" },
+                });
+                e.preventDefault();
+                alertEmailSent();
+              }}
+              accessible={true}
+              style={[
+                StyleSheet.compose(LinkStyles(theme)["Link"].style, {
+                  marginBottom: 16,
+                }),
+              ]}
+            >
+              Reset password with valid code (test only)
+            </Link>
+            <Link
+              href={"/auth/reset"}
+              onPress={(e) => {
+                router.push({
+                  pathname: "/auth/reset",
+                  params: { code: "04321" },
+                });
+                e.preventDefault();
+                alertEmailSent();
+              }}
+              accessible={true}
+              style={[
+                StyleSheet.compose(LinkStyles(theme)["Link"].style, {
+                  marginBottom: 16,
+                }),
+              ]}
+            >
+              Reset password with invalid code (test only)
             </Link>
           </View>
           <KaliButton

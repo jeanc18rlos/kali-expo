@@ -26,6 +26,7 @@ interface IAppVariables {
   ERROR_MESSAGE: string;
   isStepTrackerAvailable: string;
   todayStepsCount: number;
+  goal: number;
   user_profile: {
     data: any;
     error: string | null;
@@ -41,6 +42,7 @@ export const AppVariables: IAppVariables = {
   ERROR_MESSAGE: "",
   isStepTrackerAvailable: "checking",
   todayStepsCount: 0,
+  goal: 0,
   user_profile: { data: {}, error: null, isFetching: false },
 };
 

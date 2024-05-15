@@ -2,7 +2,7 @@ import * as StyleSheet from "../utils/StyleSheet";
 import { TextStyles } from "./Typography.stylesheet";
 import { TextInputStyles } from "./Input.stylesheet";
 import { SimpleStyleFlatList, VStack } from "@draftbit/ui";
-import { Text, TextInput as Input } from "react-native";
+import { Text, TextInput as Input, Platform } from "react-native";
 
 type TextInputProps = {
   onChangeText: (value: string) => void;
@@ -14,6 +14,7 @@ type TextInputProps = {
   onSubmitEditing?: () => void;
   submitLabel: string;
   autoComplete: any;
+  numberOfLines?: number;
 };
 
 export default function TextInput({
@@ -26,6 +27,7 @@ export default function TextInput({
   placeholder,
   submitLabel,
   autoComplete,
+  numberOfLines = 1,
 }: TextInputProps) {
   return (
     <VStack>
@@ -38,11 +40,20 @@ export default function TextInput({
         placeholder={placeholder}
         autoComplete={autoComplete}
         keyboardType="default"
+        numberOfLines={numberOfLines}
+        multiline={numberOfLines > 1}
+        placeholderTextColor={theme.colors.tertiary}
         style={[
           TextInputStyles(theme)["TextInput"].style,
+
           errors.length > 0
             ? TextInputStyles(theme)["InputErrorMessage"].style
             : {},
+          numberOfLines > 1
+            ? { minHeight: numberOfLines * 24, paddingTop: 16 }
+            : {
+                minHeight: 1,
+              },
         ]}
         value={textInputValue}
       />

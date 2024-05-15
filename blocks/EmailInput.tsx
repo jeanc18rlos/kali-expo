@@ -37,6 +37,7 @@ export default function EmailInput({
         onSubmitEditing={onSubmitEditing}
         placeholder={placeholder}
         autoComplete="email"
+        placeholderTextColor={theme.colors.tertiary}
         keyboardType="email-address"
         style={[
           TextInputStyles(theme)["TextInput"].style,

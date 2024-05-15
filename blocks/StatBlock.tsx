@@ -33,7 +33,7 @@ const StatBlock = withTheme(
             TextStyles(theme)["Text"].style,
             TextStyles(theme)["BodySmall"].style,
             {
-              maxWidth: 90,
+              maxWidth: 98,
               textAlign: "center",
             },
           ]}

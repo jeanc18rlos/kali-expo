@@ -14,7 +14,7 @@ const AuthLoginScreen = ({ theme }: { theme: KaliThemeType }) => {
   const [submit, setSubmit] = React.useState(false);
   const [passwordFieldValue, setPasswordFieldValue] = React.useState("");
   const [keyboardHeight, setKeyboardHeight] = React.useState(0);
-  const errors = useValidatePasswordExists(passwordFieldValue);
+  const [errors, setErrors] = useValidatePasswordExists(passwordFieldValue);
 
   const onChangeText = (text: string) => {
     const trimmedText = text.trim();
@@ -26,6 +26,10 @@ const AuthLoginScreen = ({ theme }: { theme: KaliThemeType }) => {
     if (errors.length > 0 || passwordFieldValue.length === 0) {
       return;
     } else {
+      const password = "password";
+      if (password !== passwordFieldValue) {
+        setErrors((prevErrors) => [...prevErrors, "Password is incorrect"]);
+      }
       router.replace("/home");
     }
   };

@@ -99,11 +99,11 @@
       "androidMode": "default"
     },
     "extra": {
-      "eas": {
-        "projectId": "37fc8128-4898-4b40-b0cc-a41344f09fda"
-      },
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "c3cae47f-1ec6-4bd7-9666-553844be17e3"
       }
     }
   }

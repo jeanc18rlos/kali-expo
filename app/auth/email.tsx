@@ -8,16 +8,14 @@ import useValidateEmail from "../../utils/validateEmail";
 import { Container } from "../../blocks/Layout.stylesheet";
 import EmailInput from "../../blocks/EmailInput";
 import { useRouter } from "expo-router";
-import { use$v1$checkEmailGET } from "../../apis/BackendApi";
 
 const AuthEmailScreen = ({ theme }: { theme: KaliThemeType }) => {
   const router = useRouter();
-
   const [submit, setSubmit] = React.useState(false);
   const [emailFieldValue, setEmailFieldValue] = React.useState("");
   const [keyboardHeight, setKeyboardHeight] = React.useState(0);
   const [errors, setErrors] = useValidateEmail(emailFieldValue);
-  const backend$v1$checkEmailGET = use$v1$checkEmailGET();
+  // const backend$v1$checkEmailGET = use$v1$checkEmailGET();
   const onChangeText = (text: string) => {
     const trimmedText = text.trim();
     setEmailFieldValue(trimmedText);
@@ -30,27 +28,32 @@ const AuthEmailScreen = ({ theme }: { theme: KaliThemeType }) => {
     } else {
       const handler = async () => {
         try {
-          const { json, status } = await backend$v1$checkEmailGET.mutateAsync({
-            email: emailFieldValue,
-          });
+          const email = "example@email.com";
+          /*
+            const { json, status } = await backend$v1$checkEmailGET.mutateAsync({
+             email: emailFieldValue,
+            });
 
-          if (status === 200) {
+            if (status === 200) {
             const email = json;
-
-            if (email[0]) {
-              router.push({
-                pathname: "/auth/login",
-                params: { email: emailFieldValue },
-              });
-            } else {
-              router.push({
-                pathname: "/auth/register",
-                params: { email: emailFieldValue },
-              });
-            }
+          */
+          // if (email[0]) {
+          if (email === emailFieldValue) {
+            router.push({
+              pathname: "/auth/login",
+              params: { email: emailFieldValue },
+            });
+          } else {
+            router.push({
+              pathname: "/auth/register",
+              params: { email: emailFieldValue },
+            });
+          }
+          /*
           } else {
             setErrors(["Unexpected error occurred. Please try again later."]);
           }
+        */
         } catch (err) {
           console.error(err);
         }

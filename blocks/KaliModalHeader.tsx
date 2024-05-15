@@ -1,12 +1,11 @@
 import React from "react";
-import * as StyleSheet from "../utils/StyleSheet";
 import { HStack, IconButton, withTheme } from "@draftbit/ui";
 import { Text, View } from "react-native";
 import { router } from "expo-router";
 import { TextStyles } from "./Typography.stylesheet";
 import { IconButtonStyles } from "./IconButton.stylesheet";
 
-type IconNames = "CloseButton" | "GoBackButton";
+type IconNames = "CloseButton" | "GoBackButton" | "PenButton" | "SaveButton";
 
 const ActionButton = ({
   icon,
@@ -19,11 +18,14 @@ const ActionButton = ({
 }) => {
   return (
     <IconButton
-      style={[IconButtonStyles(theme)["IconButton"].style,{
-        backgroundColor: theme.colors.divider,
-        borderRadius: 100,
-        padding: 8,
-      }]}
+      style={[
+        IconButtonStyles(theme)["IconButton"].style,
+        {
+          backgroundColor: theme.colors.divider,
+          borderRadius: 100,
+          padding: 8,
+        },
+      ]}
       onPress={action}
       color={IconButtonStyles(theme)["IconButton"].style.color}
       icon={IconButtonStyles(theme)[icon].props.icon}
@@ -41,6 +43,7 @@ const KaliModalHeader: React.FC<{
   right_icon?: IconNames;
   right_action?: () => void;
   theme: any;
+  isCenter?: boolean;
 }> = (props) => {
   const { theme } = props;
 
@@ -50,6 +53,8 @@ const KaliModalHeader: React.FC<{
         justifyContent: "space-between",
         padding: 16,
         backgroundColor: theme.colors.background,
+        height: 60,
+        alignItems: "center",
       }}
     >
       {/* Go back Wrapper */}
@@ -63,17 +68,21 @@ const KaliModalHeader: React.FC<{
             theme={theme}
           />
         ) : (
-          <View />
+          <View
+            style={{
+              width: 32,
+              height: 32,
+            }}
+          />
         )}
       </>
       {/* H6 */}
       <Text
         accessible={true}
         style={[
-          StyleSheet.compose(
-            TextStyles(theme)["Text"].style,
-            TextStyles(theme)["Headline6"].style
-          ),
+          TextStyles(theme)["Text"].style,
+          TextStyles(theme)["Headline6"].style,
+          { color: theme.colors["body_text"] },
         ]}
       >
         {props.title}
@@ -91,6 +100,14 @@ const KaliModalHeader: React.FC<{
             theme={theme}
           />
         )}
+        {!props.right_button && props.isCenter ? (
+          <View
+            style={{
+              width: 32,
+              height: 32,
+            }}
+          />
+        ) : null}
       </>
     </HStack>
   );

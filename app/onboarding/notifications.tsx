@@ -7,6 +7,7 @@ import { TextStyles } from "../../blocks/Typography.stylesheet";
 import { Container } from "../../blocks/Layout.stylesheet";
 import ResetLink from "../../blocks/ResetLink";
 import useResetRoute from "../../utils/resetRoute";
+import * as Notifications from "expo-notifications";
 
 const OnboardingConsistencyScreen = (props: { theme: KaliThemeType }) => {
   const { theme } = props;
@@ -14,7 +15,7 @@ const OnboardingConsistencyScreen = (props: { theme: KaliThemeType }) => {
 
   const onSubmit = () => {
     try {
-      reset("/home");
+      reset("(tabs)");
     } catch (err) {
       console.error(err);
     }
@@ -65,7 +66,19 @@ const OnboardingConsistencyScreen = (props: { theme: KaliThemeType }) => {
           <KaliButton
             theme={theme}
             variant="ButtonPrimary"
-            onPress={onSubmit}
+            onPress={() => {
+              Notifications.getPermissionsAsync().then((status) => {
+                if (status.status === "granted") {
+                  onSubmit();
+                } else {
+                  Notifications.requestPermissionsAsync().then((status) => {
+                    if (status.status === "granted") {
+                      onSubmit();
+                    }
+                  });
+                }
+              });
+            }}
             style={{
               marginTop: 0,
             }}

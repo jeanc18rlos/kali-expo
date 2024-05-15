@@ -16,6 +16,16 @@ export const IconButtonStyles = (theme: KaliThemeType) =>
         icon: "close",
       },
     },
+    SaveButton: {
+      props: {
+        icon: "MaterialIcons/save-alt",
+      },
+    },
+    PenButton: {
+      props: {
+        icon: "MaterialCommunityIcons/pencil-outline",
+      },
+    },
     GoBackButton: {
       props: {
         icon: "AntDesign/left",

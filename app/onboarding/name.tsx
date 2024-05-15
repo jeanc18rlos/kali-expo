@@ -85,7 +85,7 @@ const OnboardingNameScreen = (props: { theme: KaliThemeType }) => {
         >
           <VStack>
             <ResetLink
-              link="/home"
+              link="(tabs)"
               title="SKIP"
               theme={theme}
               style={{

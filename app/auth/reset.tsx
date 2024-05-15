@@ -7,24 +7,41 @@ import { TextStyles } from "../../blocks/Typography.stylesheet";
 import { Container } from "../../blocks/Layout.stylesheet";
 import PasswordInput from "../../blocks/PasswordInput";
 import useValidatePassword from "../../utils/validatePassword";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 
 const AuthResetPasswordScreen = ({ theme }: { theme: KaliThemeType }) => {
   const [submit, setSubmit] = React.useState(false);
   const [passwordFieldValue, setPasswordFieldValue] = React.useState("");
   const [keyboardHeight, setKeyboardHeight] = React.useState(0);
-  const errors = useValidatePassword(passwordFieldValue);
+  const [errors, setErrors] = useValidatePassword(passwordFieldValue);
+  const params = useLocalSearchParams();
+  const { code } = params;
 
   const onChangeText = (text: string) => {
     const trimmedText = text.trim();
     setPasswordFieldValue(trimmedText);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     setSubmit(true);
     if (errors.length > 0 || passwordFieldValue.length === 0) {
       return;
     } else {
+      if (passwordFieldValue === "Pa55w0rd!") {
+        setErrors((prevErrors) => [
+          ...prevErrors,
+          "Cannot use the same password",
+        ]);
+        return;
+      }
+      if (code !== "123456") {
+        setErrors((prevErrors) => [
+          ...prevErrors,
+          "Cannot use the same password",
+        ]);
+        return;
+      }
+      await alert("Password succesfully changed, navigate to login screen");
       router.push("/auth/login");
     }
   };

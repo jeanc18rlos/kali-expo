@@ -1,13 +1,26 @@
-import React from 'react';
-import * as GlobalStyles from '../GlobalStyles.js';
-import DailyActivityVerticalBarBlock from '../components/DailyActivityVerticalBarBlock';
-import Breakpoints from '../utils/Breakpoints';
-import * as StyleSheet from '../utils/StyleSheet';
-import useWindowDimensions from '../utils/useWindowDimensions';
-import { HStack, VStack, withTheme } from '@draftbit/ui';
-import { Text, View } from 'react-native';
+import React from "react";
+import DailyActivityVerticalBarBlock from "./DailyActivityVerticalBarBlock";
+import * as StyleSheet from "../utils/StyleSheet";
+import useWindowDimensions from "../utils/useWindowDimensions";
+import { HStack, VStack, withTheme } from "@draftbit/ui";
+import { Text, View } from "react-native";
+import { TextStyles } from "./Typography.stylesheet";
 
-const WeeklyActivityBlock = props => {
+const WeeklyActivityBlock = (props: {
+  sunday_steps: { goalSteps: number; dailySteps: number; extraSteps: number };
+  monday_steps: { goalSteps: number; dailySteps: number; extraSteps: number };
+  tuesday_steps: { goalSteps: number; dailySteps: number; extraSteps: number };
+  wednesday_steps: {
+    goalSteps: number;
+    dailySteps: number;
+    extraSteps: number;
+  };
+  thursday_steps: { goalSteps: number; dailySteps: number; extraSteps: number };
+  friday_steps: { goalSteps: number; dailySteps: number; extraSteps: number };
+  saturday_steps: { goalSteps: number; dailySteps: number; extraSteps: number };
+  record: number;
+  theme: any;
+}) => {
   const { theme } = props;
   const dimensions = useWindowDimensions();
 
@@ -19,47 +32,27 @@ const WeeklyActivityBlock = props => {
       )}
     >
       <VStack
-        {...GlobalStyles.VStackStyles(theme)['V Stack'].props}
-        style={StyleSheet.applyWidth(
-          StyleSheet.compose(
-            GlobalStyles.VStackStyles(theme)['V Stack'].style,
-            {
-              backgroundColor: theme.colors['Custom Color_4'],
-              borderRadius: 20,
-              padding: 16,
-            }
-          ),
-          dimensions.width
-        )}
+        style={{
+          backgroundColor: theme.colors.divider,
+          borderRadius: 20,
+          padding: 16,
+        }}
       >
         {/* Legend */}
         <HStack
-          {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(
-              GlobalStyles.HStackStyles(theme)['H Stack'].style,
-              {
-                justifyContent: 'space-between',
-                marginBottom: 20,
-                width: '100%',
-              }
-            ),
-            dimensions.width
-          )}
+          style={{
+            justifyContent: "space-between",
+            marginBottom: 20,
+            width: "100%",
+          }}
         >
           {/* Today Steps */}
-          <HStack
-            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.HStackStyles(theme)['H Stack'].style,
-              dimensions.width
-            )}
-          >
+          <HStack>
             {/* color */}
             <View
               style={StyleSheet.applyWidth(
                 {
-                  backgroundColor: theme.colors['Custom Color_36'],
+                  backgroundColor: theme.colors.daily_steps_bg,
                   borderRadius: 5,
                   height: 10,
                   width: 10,
@@ -70,35 +63,24 @@ const WeeklyActivityBlock = props => {
             {/* label */}
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    color: theme.colors['Custom Color_34'],
-                    fontFamily: 'DMSans_400Regular',
-                    marginLeft: 8,
-                  }
-                ),
-                dimensions.width
-              )}
+              style={[
+                TextStyles(theme)["Text"].style,
+                {
+                  fontFamily: "DMSans_400Regular",
+                  marginLeft: 8,
+                },
+              ]}
             >
-              {'Today steps'}
+              {"Today steps"}
             </Text>
           </HStack>
           {/* Goal Steps */}
-          <HStack
-            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.HStackStyles(theme)['H Stack'].style,
-              dimensions.width
-            )}
-          >
+          <HStack>
             {/* color */}
             <View
               style={StyleSheet.applyWidth(
                 {
-                  backgroundColor: theme.colors['Custom Color_34'],
+                  backgroundColor: theme.colors.goal_steps_bg,
                   borderRadius: 5,
                   height: 10,
                   width: 10,
@@ -109,35 +91,24 @@ const WeeklyActivityBlock = props => {
             {/* label */}
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    color: theme.colors['Custom Color_34'],
-                    fontFamily: 'DMSans_400Regular',
-                    marginLeft: 8,
-                  }
-                ),
-                dimensions.width
-              )}
+              style={[
+                TextStyles(theme)["Text"].style,
+                {
+                  fontFamily: "DMSans_400Regular",
+                  marginLeft: 8,
+                },
+              ]}
             >
-              {'Goal steps'}
+              {"Goal steps"}
             </Text>
           </HStack>
           {/* Extra Steps */}
-          <HStack
-            {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-            style={StyleSheet.applyWidth(
-              GlobalStyles.HStackStyles(theme)['H Stack'].style,
-              dimensions.width
-            )}
-          >
+          <HStack>
             {/* color */}
             <View
               style={StyleSheet.applyWidth(
                 {
-                  backgroundColor: theme.colors['Custom Color_33'],
+                  backgroundColor: theme.colors.extra_steps_bg,
                   borderRadius: 5,
                   height: 10,
                   width: 10,
@@ -148,36 +119,24 @@ const WeeklyActivityBlock = props => {
             {/* label */}
             <Text
               accessible={true}
-              {...GlobalStyles.TextStyles(theme)['Text'].props}
-              style={StyleSheet.applyWidth(
-                StyleSheet.compose(
-                  GlobalStyles.TextStyles(theme)['Text'].style,
-                  {
-                    color: theme.colors['Custom Color_34'],
-                    fontFamily: 'DMSans_400Regular',
-                    marginLeft: 8,
-                  }
-                ),
-                dimensions.width
-              )}
+              style={[
+                TextStyles(theme)["Text"].style,
+                {
+                  color: theme.colors["Custom Color_34"],
+                  fontFamily: "DMSans_400Regular",
+                  marginLeft: 8,
+                },
+              ]}
             >
-              {'Extra steps'}
+              {"Extra steps"}
             </Text>
           </HStack>
         </HStack>
         {/* Activity */}
-        <HStack
-          {...GlobalStyles.HStackStyles(theme)['H Stack'].props}
-          style={StyleSheet.applyWidth(
-            StyleSheet.compose(
-              GlobalStyles.HStackStyles(theme)['H Stack'].style,
-              { flex: 1, justifyContent: 'space-between' }
-            ),
-            dimensions.width
-          )}
-        >
+        <HStack style={{ flex: 1, justifyContent: "space-between" }}>
           {/* Sunday */}
           <DailyActivityVerticalBarBlock
+            record={props.record}
             dailySteps={
               (
                 props.sunday_steps ?? {
@@ -205,10 +164,11 @@ const WeeklyActivityBlock = props => {
                 }
               )?.goalSteps
             }
-            label={'SU'}
+            label={"SU"}
           />
           {/* Monday */}
           <DailyActivityVerticalBarBlock
+            record={props.record}
             dailySteps={
               (
                 props.monday_steps ?? {
@@ -236,10 +196,11 @@ const WeeklyActivityBlock = props => {
                 }
               )?.goalSteps
             }
-            label={'MO'}
+            label={"MO"}
           />
           {/* Tuesday */}
           <DailyActivityVerticalBarBlock
+            record={props.record}
             dailySteps={
               (
                 props.tuesday_steps ?? {
@@ -267,10 +228,11 @@ const WeeklyActivityBlock = props => {
                 }
               )?.goalSteps
             }
-            label={'TU'}
+            label={"TU"}
           />
           {/* Wednesday */}
           <DailyActivityVerticalBarBlock
+            record={props.record}
             dailySteps={
               (
                 props.wednesday_steps ?? {
@@ -298,10 +260,11 @@ const WeeklyActivityBlock = props => {
                 }
               )?.goalSteps
             }
-            label={'WE'}
+            label={"WE"}
           />
           {/* Thursday */}
           <DailyActivityVerticalBarBlock
+            record={props.record}
             dailySteps={
               (
                 props.thursday_steps ?? {
@@ -329,10 +292,11 @@ const WeeklyActivityBlock = props => {
                 }
               )?.goalSteps
             }
-            label={'TH'}
+            label={"TH"}
           />
           {/* Friday */}
           <DailyActivityVerticalBarBlock
+            record={props.record}
             dailySteps={
               (
                 props.friday_steps ?? {
@@ -360,10 +324,11 @@ const WeeklyActivityBlock = props => {
                 }
               )?.goalSteps
             }
-            label={'FR'}
+            label={"FR"}
           />
           {/* Saturday */}
           <DailyActivityVerticalBarBlock
+            record={props.record}
             dailySteps={
               (
                 props.saturday_steps ?? {
@@ -391,7 +356,7 @@ const WeeklyActivityBlock = props => {
                 }
               )?.goalSteps
             }
-            label={'SA'}
+            label={"SA"}
           />
         </HStack>
       </VStack>

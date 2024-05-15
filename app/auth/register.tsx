@@ -45,25 +45,19 @@ const AuthRegisterScreen = ({ theme }: { theme: KaliThemeType }) => {
     } else {
       const handler = async () => {
         try {
+          /*
+
           const { json: data, status } = await signUpPOST(Constants, {
             signupEmail: email,
             signupPassword: passwordFieldValue,
             timezone: Localization.getCalendars()[0].timeZone,
           });
 
-          if (status === 200) {
-            if (data.access_token) {
-              SetConstant({
-                'AUTHORIZATION_HEADER': data.access_token,
-              });
-              reset("onboarding");
-            } else {
-              setErrors(["Unexpected error occurred. Please try again later."]);
-            }
-          } else if (data.code === 422) {
+          */
+          if (email === "example@email.com") {
             setErrors(["Email already exists"]);
           } else {
-            setErrors(["Unexpected error occurred. Please try again later."]);
+            reset("onboarding");
           }
         } catch (err) {
           console.error(err);

@@ -13,9 +13,11 @@ const AnimatedPath = Animated.createAnimatedComponent(Path);
 export const SemiCircleProgressBar = ({
   progress,
   radius,
+  roated = false,
 }: {
   progress: number;
   radius: number;
+  roated?: boolean;
 }) => {
   const animatedValue = useSharedValue(0);
 
@@ -56,9 +58,9 @@ export const SemiCircleProgressBar = ({
         viewBox={`0 0 ${(radius + 10) * 2} ${radius * 2}`}
         style={{
           position: "absolute",
-          top: 0,
+          top: roated ? -120 : 0,
           left: 0,
-          transform: [{ rotate: "-90deg" }],
+          transform: [{ rotate: roated ? "90deg" : "-90deg" }],
         }}
       >
         <Defs>

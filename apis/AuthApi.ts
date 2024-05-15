@@ -1,15 +1,8 @@
 import * as React from "react";
-import {
-  useQuery,
-  useMutation,
-  useIsFetching,
-  useQueryClient,
-} from "react-query";
-import useFetch from "react-fetch-hook";
+import { useQuery, useQueryClient } from "react-query";
 import { useIsFocused } from "@react-navigation/native";
-import { handleResponse, isOkStatus } from "../utils/handleRestApiResponse";
+import { handleResponse } from "../utils/handleRestApiResponse";
 import usePrevious from "../utils/usePrevious";
-import encodeQueryParam from "../utils/encodeQueryParam";
 import * as GlobalVariables from "../config/GlobalVariableContext";
 
 export const loginPOST = (Constants, { email, password }, handlers = {}) =>

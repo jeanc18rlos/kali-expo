@@ -1,5 +1,5 @@
 import { StyleSheet, View, Dimensions, ActivityIndicator } from "react-native";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as ProductsServiceApi from "../../apis/ProductsServiceApi";
 import {
   ScreenContainer,
@@ -17,6 +17,12 @@ import DailyBonus from "../../blocks/DailyBonus";
 import ConfettiCannon from "react-native-confetti-cannon";
 import * as Haptics from "expo-haptics";
 import ParseShopifyProduct from "../../utils/parseShopifyProducts";
+import { Pedometer } from "expo-sensors";
+import PointsToLevelProgressBar from "../../blocks/PointsToLevelProgressBar";
+import * as BrandsServiceApi from "../../apis/BrandsServiceApi";
+import BrandList from "../../blocks/BrandList";
+import * as DealsServiceApi from "../../apis/DealsServiceApi";
+import DealSlider from "../../blocks/DealSlider";
 const stats = [
   { title: "weekly steps", count: 0 },
   { title: "daily streak", count: 0 },
@@ -29,6 +35,35 @@ function App({ theme }: { theme: KaliThemeType }) {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Heavy);
     explosion.current && (explosion.current as any).start();
   };
+
+  const [isPedometerAvailable, setIsPedometerAvailable] = useState("checking");
+  const [pastStepCount, setPastStepCount] = useState(0);
+  const [currentStepCount, setCurrentStepCount] = useState(0);
+
+  const subscribe = async () => {
+    const isAvailable = await Pedometer.isAvailableAsync();
+    setIsPedometerAvailable(String(isAvailable));
+
+    if (isAvailable) {
+      const end = new Date();
+      const start = new Date();
+      start.setDate(end.getDate() - 1);
+
+      const pastStepCountResult = await Pedometer.getStepCountAsync(start, end);
+      if (pastStepCountResult) {
+        setPastStepCount(pastStepCountResult.steps);
+      }
+
+      return Pedometer.watchStepCount((result) => {
+        setCurrentStepCount(result.steps);
+      });
+    }
+  };
+
+  useEffect(() => {
+    const subscription = subscribe();
+    return () => subscription && subscription.remove();
+  }, []);
 
   return (
     <>
@@ -86,7 +121,26 @@ function App({ theme }: { theme: KaliThemeType }) {
           })}
         >
           <StatBarBlock stats={stats} />
-          <StepProgressBarBlock goal={1000} steps={0} />
+          <StepProgressBarBlock goal={1000} steps={currentStepCount} />
+          <PointsToLevelProgressBar
+            points={pastStepCount + currentStepCount}
+            nextLevelPoints={
+              (currentStepCount && currentStepCount > 0) ||
+              (pastStepCount && pastStepCount > 0)
+                ? Math.ceil(
+                    ((pastStepCount || 0) + (currentStepCount || 0)) / 1000
+                  ) * 1000
+                : 1000
+            }
+            nextLevel={
+              (currentStepCount && currentStepCount > 0) ||
+              (pastStepCount && pastStepCount > 0)
+                ? Math.ceil(
+                    ((pastStepCount || 0) + currentStepCount || 0) / 1000
+                  )
+                : 1
+            }
+          />
           <StreakBarBlock activeDays={[]} />
         </VStack>
         <VStack
@@ -106,11 +160,15 @@ function App({ theme }: { theme: KaliThemeType }) {
             }}
           />
 
-          <View>
+          <VStack
+            style={{
+              gap: 32
+            }}
+          >
             <ProductsServiceApi.FetchGetProductsPOST
-              refetchInterval={60 * 1000}
+              refetchInterval={600 * 1000}
             >
-              {({ loading, error, data, refetchGetProducts }) => {
+              {({ loading, error, data, refetchGetProducts }: any) => {
                 const fetchData = data?.json;
                 if (loading) {
                   return <ActivityIndicator />;
@@ -130,7 +188,44 @@ function App({ theme }: { theme: KaliThemeType }) {
                 );
               }}
             </ProductsServiceApi.FetchGetProductsPOST>
-          </View>
+
+            <BrandsServiceApi.FetchGetBrandsPOST>
+              {({ loading, error, data, refetchGetBrands }) => {
+                const fetchData = data?.json;
+                if (loading) {
+                  return <ActivityIndicator />;
+                }
+
+                if (error || data?.status < 200 || data?.status >= 300) {
+                  return <ActivityIndicator />;
+                }
+
+                return (
+                  <BrandList
+                    allLabel={"Shop all"}
+                    brands={fetchData?.result}
+                    title={"Your favorite brands"}
+                    subtitle={"Shop from your favorite brands"}
+                  />
+                );
+              }}
+            </BrandsServiceApi.FetchGetBrandsPOST>
+
+            <DealsServiceApi.FetchGetDealsPOST>
+              {({ loading, error, data, refetchGetDeals }) => {
+                const fetchData = data?.json;
+                if (loading) {
+                  return <ActivityIndicator />;
+                }
+
+                if (error || data?.status < 200 || data?.status >= 300) {
+                  return <ActivityIndicator />;
+                }
+
+                return <DealSlider deals={fetchData?.result} theme={theme}/>;
+              }}
+            </DealsServiceApi.FetchGetDealsPOST>
+          </VStack>
         </VStack>
       </ScreenContainer>
     </>

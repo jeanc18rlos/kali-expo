@@ -17,15 +17,11 @@ const OnboardingTrackScreen = (props: { theme: KaliThemeType }) => {
       Pedometer.requestPermissionsAsync().then((response) => {
         if (response.granted) {
           console.log("Permission granted");
-          SetConstant({
-            IS_STEP_TRACKER_PERMISSION_GRANTED: true,
-          });
+          alert("Tracking Permission granted");
         } else {
-          SetConstant({
-            IS_STEP_TRACKER_PERMISSION_GRANTED: false,
-          });
+          alert("Tracking Permission denied");
         }
-        router.push("/onboarding/goal")
+        router.push("/onboarding/goal");
       });
     } catch (err) {
       console.error(err);
