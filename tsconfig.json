@@ -1,6 +1,22 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "strict": true,
+    "jsx": "react-native",
+    "paths": {
+      "@/*": ["./*"],
+      "@kali-ui/*": ["./design-system/*"],
+      "@kali-ui/core/*": ["./design-system/core/*"],
+      "@kali-ui/components/*": ["./design-system/components/*"],
+      "@kali-ui/types/*": ["./design-system/types/*"],
+      "@kali-app/app/*": ["./app/*"],
+      "@kali-app/components/*": ["./components/*"],
+      "@kali-app/assets/*": ["./assets/*"],
+      "@kali-app/config/*": ["./config/*"],
+      "@kali-app/constants/*": ["./constants/*"],
+      "@kali-app/hooks/*": ["./hooks/*"],
+      "@kali-app/themes/*": ["./themes/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
