@@ -1,0 +1,68 @@
+{
+  "name": "@kali/native",
+  "version": "1.0.0",
+  "description": "Kali UI Components that Depend on Native Components",
+  "main": "lib/commonjs/index.js",
+  "types": "lib/typescript/src/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "clean:modules": "rimraf node_modules",
+    "build:commonjs": "../../node_modules/.bin/babel src --out-dir lib/commonjs --extensions .tsx,.ts,.js,.jsx",
+    "build": "yarn clean && yarn build:commonjs  && yarn tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeanc18rlos/kali-expo",
+    "directory": "packages/core"
+  },
+  "author": "Kali Dev <dev@kali.com> (https://kali.day)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeanc18rlos/kali-expo/issues"
+  },
+  "homepage": "https://github.com/jeanc18rlos/kali-expo#readme",
+  "dependencies": {
+    "@kali/types": "1.0.0",
+    "@expo/vector-icons": "^14.0.0",
+    "@react-native-community/datetimepicker": "7.6.1",
+    "@react-native-community/slider": "4.4.2",
+    "expo-camera": "~14.1.3",
+    "expo-linear-gradient": "~12.7.2",
+    "react-native-svg": "14.1.0",
+    "react-native-webview": "13.6.4"
+  },
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.77.0"
+  },
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "jest": {
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "testPathIgnorePatterns": [
+      "lib",
+      "__mocks__"
+    ]
+  }
+}
