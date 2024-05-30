@@ -1,0 +1,55 @@
+{
+  "name": "@kali/types",
+  "version": "1.0.0",
+  "description": "Shared constants and types between native and core components",
+  "main": "lib/commonjs/index.js",
+  "types": "lib/typescript/src/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "clean:modules": "rimraf node_modules",
+    "build:commonjs": "../../node_modules/.bin/babel src --out-dir lib/commonjs --extensions .tsx,.ts,.js,.jsx",
+    "build": "yarn clean && yarn build:commonjs  && yarn tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeanc18rlos/kali-expo",
+    "directory": "packages/core"
+  },
+  "author": "Kali Dev <dev@kali.com> (https://kali.day)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeanc18rlos/kali-expo/issues"
+  },
+  "homepage": "https://github.com/jeanc18rlos/kali-expo#readme",
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "devDependencies": {
+    "metro-react-native-babel-preset": "^0.77.0"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "testPathIgnorePatterns": [
+      "lib",
+      "__mocks__"
+    ]
+  }
+}
