@@ -1,22 +1,41 @@
 {
-  "extends": "expo/tsconfig.base",
+  "exclude": ["**/lib/**/*", "**/__tests__/**"],
   "compilerOptions": {
-    "strict": true,
-    "jsx": "react-native",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@kali-ui/*": ["./design-system/*"],
-      "@kali-ui/core/*": ["./design-system/core/*"],
-      "@kali-ui/components/*": ["./design-system/components/*"],
-      "@kali-ui/types/*": ["./design-system/types/*"],
-      "@kali-app/app/*": ["./app/*"],
-      "@kali-app/components/*": ["./components/*"],
-      "@kali-app/assets/*": ["./assets/*"],
-      "@kali-app/config/*": ["./config/*"],
-      "@kali-app/constants/*": ["./constants/*"],
-      "@kali-app/hooks/*": ["./hooks/*"],
-      "@kali-app/themes/*": ["./themes/*"]
-    }
+      "@kali/*": ["packages/*/src"]
+    },
+    "sourceMap": true,
+    "inlineSources": false,
+    "inlineSourceMap": false,
+    "composite": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "lib": ["esnext", "dom"],
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": false,
+    "noStrictGenericChecks": false,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "alwaysStrict": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es2019"
   },
-  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
 }

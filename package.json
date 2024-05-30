@@ -1,54 +1,132 @@
 {
-  "name": "kali-expo",
-  "main": "expo-router/entry",
-  "version": "1.0.0",
+  "name": "kali",
+  "description": "Root package.json",
+  "version": "0.0.0",
   "scripts": {
-    "start": "expo start",
-    "reset-project": "node ./scripts/reset-project.js",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
-    "test": "jest --watchAll",
-    "lint": "expo lint"
+    "commit": "cz",
+    "kali": "yarn --cwd kali",
+    "bootstrap": "lerna bootstrap",
+    "crosslink": "lerna link",
+    "format": "prettier --write .",
+    "lint": "eslint \"**/*.{ts,tsx}\"",
+    "build": "lerna run build",
+    "test": "lerna run test --stream -- --passWithNoTests",
+    "clean": "lerna run clean",
+    "clean:modules": "lerna run clean:modules && rm -rf node_modules",
+    "typescript": "tsc --composite false --noEmit",
+    "version:expo": "lerna version major --no-push --exact",
+    "version:major": "lerna version minor --no-push --exact",
+    "version:minor": "lerna version patch --no-push --exact",
+    "version:patch": "echo \"No patch versions: See root README.md\"",
+    "prepare": "husky install",
+    "tsc": "echo 'You are trying to run \"tsc\" in the workspace root. Run it from an individual package instead.' && exit 1"
   },
-  "jest": {
-    "preset": "jest-expo"
-  },
-  "dependencies": {
-    "@callstack/react-theme-provider": "^3.0.9",
-    "@expo/vector-icons": "^14.0.0",
-    "@react-navigation/native": "^6.0.2",
-    "expo": "~51.0.8",
-    "expo-constants": "~16.0.1",
-    "expo-font": "~12.0.5",
-    "expo-linking": "~6.3.1",
-    "expo-router": "~3.5.14",
-    "expo-splash-screen": "~0.27.4",
-    "expo-status-bar": "~1.12.1",
-    "expo-system-ui": "~3.0.4",
-    "expo-web-browser": "~13.0.3",
-    "lodash": "^4.17.21",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-native": "0.74.1",
-    "react-native-gesture-handler": "~2.16.1",
-    "react-native-reanimated": "~3.10.1",
-    "react-native-safe-area-context": "4.10.1",
-    "react-native-screens": "3.31.1",
-    "react-native-svg": "15.2.0",
-    "react-native-typography": "^1.4.1",
-    "react-native-web": "~0.19.10"
-  },
+  "workspaces": [
+    "kali",
+    "packages/*"
+  ],
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@types/jest": "^29.5.12",
-    "@types/lodash": "^4.17.4",
-    "@types/react": "~18.2.45",
-    "@types/react-test-renderer": "^18.0.7",
-    "jest": "^29.2.1",
-    "jest-expo": "~51.0.2",
-    "react-test-renderer": "18.2.0",
-    "typescript": "~5.3.3"
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.22.1",
+    "@babel/preset-env": "^7.22.4",
+    "@babel/preset-typescript": "^7.21.5",
+    "@react-native-community/eslint-config": "^3.2.0",
+    "@testing-library/jest-native": "^5.4.2",
+    "@testing-library/react-native": "^12.1.2",
+    "@types/jest": "^29.5.0",
+    "@types/react-test-renderer": "^18.0.0",
+    "babel-jest": "^29.5.0",
+    "dotenv": "^9.0.2",
+    "eslint": "^8.18.0",
+    "eslint-plugin-prettier": "^4.2.0",
+    "husky": ">=6",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jest-expo": "^49.0.0",
+    "json-server": "^0.16.3",
+    "lerna": "^5.6.2",
+    "cz-conventional-changelog": "^3.3.0",
+    "lint-staged": ">=15",
+    "node-fetch": "^2.6.1",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.0.0",
+    "typescript": "~4.7.4",
+    "utility-types": "^3.10.0",
+    "yarn-deduplicate": "^3.1.0"
+  },
+  "eslintConfig": {
+    "extends": [
+      "@react-native-community",
+      "prettier"
+    ],
+    "settings": {
+      "react": {
+        "version": "18"
+      }
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "rules": {
+      "react-native/no-inline-styles": "off",
+      "prettier/prettier": [
+        "error",
+        {
+          "quoteProps": "consistent",
+          "semi": true,
+          "singleQuote": false,
+          "tabWidth": 2,
+          "trailingComma": "es5",
+          "useTabs": false,
+          "bracketSpacing": true
+        }
+      ]
+    },
+    "parserOptions": {
+      "requireConfigFile": false
+    }
+  },
+  "eslintIgnore": [
+    "scripts",
+    "node_modules/",
+    "lib/",
+    "__generated__",
+    "jest-setup.js"
+  ],
+  "prettier": {
+    "quoteProps": "consistent",
+    "semi": true,
+    "singleQuote": false,
+    "tabWidth": 2,
+    "trailingComma": "es5",
+    "useTabs": false,
+    "bracketSpacing": true,
+    "endOfLine": "auto"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx}": "eslint --cache --fix",
+    "*.{js,ts,tsx,json,mcss,md}": "prettier --write"
+  },
+  "browserslist": {
+    "browsers": [
+      "defaults",
+      "not dead",
+      "not ie <= 11",
+      "not op_mini all",
+      "not android <= 4.4",
+      "not samsung <= 4"
+    ],
+    "node": "20"
+  },
+  "engines": {
+    "node": "20.11.0"
+  },
+  "commitizen": {
+    "path": "cz-conventional-changelog"
   },
   "private": true
 }
