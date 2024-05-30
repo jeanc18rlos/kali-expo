@@ -1,0 +1,111 @@
+{
+  "name": "@kali/core",
+  "version": "1.0.0",
+  "description": "Core (non-native) Components",
+  "main": "lib/commonjs/index.js",
+  "types": "lib/typescript/src/index.d.ts",
+  "files": [
+    "src",
+    "lib",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ],
+  "scripts": {
+    "clean": "rimraf lib",
+    "clean:modules": "rimraf node_modules",
+    "build:commonjs": "../../node_modules/.bin/babel src --out-dir lib/commonjs --extensions .tsx,.ts,.js,.jsx",
+    "build": "yarn clean && yarn build:commonjs  && yarn tsc",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "keywords": [
+    "react-native",
+    "ios",
+    "android"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jeanc18rlos/kali-expo",
+    "directory": "packages/core"
+  },
+  "author": "Kali Dev <dev@kali.com> (https://kali.day)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jeanc18rlos/kali-expo/issues"
+  },
+  "homepage": "https://github.com/jeanc18rlos/kali-expo#readme",
+  "eslintIgnore": [
+    "node_modules/",
+    "lib/"
+  ],
+  "peerDependencies": {
+    "react": "^17.0.1",
+    "react-native": "^0.66.0",
+    "react-native-avoid-softinput": "^4.0.1"
+  },
+  "peerDependenciesMeta": {
+    "react-native-avoid-softinput": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@callstack/react-theme-provider": "^3.0.9",
+    "@expo/vector-icons": "^14.0.0",
+    "@kali/types": "^1.0.0",
+    "@react-native-community/slider": "4.4.2",
+    "@react-native-picker/picker": "2.6.1",
+    "@shopify/flash-list": "1.6.3",
+    "color": "^3.1.2",
+    "date-fns": "^2.16.1",
+    "dateformat": "^3.0.3",
+    "expo-av": "~13.10.6",
+    "lodash.isequal": "^4.5.0",
+    "lodash.isnumber": "^3.0.3",
+    "lodash.omit": "^4.5.0",
+    "lodash.tonumber": "^4.0.3",
+    "react-hook-form": "^7.51.5",
+    "react-native-confirmation-code-field": "^7.3.1",
+    "react-native-deck-swiper": "^2.0.12",
+    "react-native-dropdown-picker": "^5.4.7-beta.1",
+    "react-native-gesture-handler": "~2.14.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-markdown-display": "^7.0.0-alpha.2",
+    "react-native-modal-datetime-picker": "^13.0.0",
+    "react-native-pager-view": "6.2.3",
+    "react-native-reanimated": "~3.10.1",
+    "react-native-shadow-2": "^7.0.7",
+    "react-native-svg": "14.1.0",
+    "react-native-swipe-list-view": "^3.2.9",
+    "react-native-tab-view": "^3.4.0",
+    "react-native-typography": "^1.4.1",
+    "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-export-namespace-from": "^7.18.9",
+    "@types/color": "^3.0.1",
+    "@types/dateformat": "^3.0.1",
+    "@types/lodash.isnumber": "^3.0.6",
+    "@types/lodash.omit": "^4.5.6",
+    "@types/lodash.tonumber": "^4.0.6",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "react-native-avoid-softinput": "^4.0.1"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect",
+      "./jest-setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "lib",
+      "__mocks__",
+      "declarations.d.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "testEnvironment": "node"
+  }
+}
